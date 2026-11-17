@@ -231,6 +231,76 @@ section[id] { scroll-margin-top:102px; }
   .hero .actions .button { font-size:.85rem; padding:7px 11px; }
 }
 @media(max-width:380px) { .experiment-grid { grid-template-columns:1fr; } }
+
+/* Portfolio presentation */
+:root {
+  --page-glow:#eadde8; --hero-shadow:#57345319;
+  --card-mauve:#ecd5e3; --card-mint:#d4e9df; --card-blue:#dbe2f6; --card-peach:#f2ddcb;
+}
+:root[data-theme="dark"] {
+  --page-glow:#33213c; --hero-shadow:#09060b70;
+  --card-mauve:#482b46; --card-mint:#234139; --card-blue:#303751; --card-peach:#493629;
+}
+body, :root[data-theme="dark"] body {
+  background:radial-gradient(ellipse 50rem 37rem at 82% 0%,var(--page-glow),transparent),var(--paper);
+}
+.brand { display:inline-flex; align-items:center; gap:9px; font-size:.84rem; }
+.brand-dot { inline-size:9px; block-size:9px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px var(--surface-tint); }
+.top nav a { font-size:.9rem; }
+.top .site-preferences button { min-height:36px; }
+.hero {
+  grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);
+  min-height:clamp(380px,46vw,540px);
+  margin-block:36px 52px;
+  background:linear-gradient(120deg,var(--surface) 24%,var(--hero-surface));
+  box-shadow:0 22px 68px var(--hero-shadow);
+}
+.hero h1 { font-size:clamp(3rem,7.1vw,6rem); }
+.hero .intro { max-width:34ch; line-height:1.72; }
+:root[lang="en"] .hero .intro { max-width:40ch; }
+.hero figure { width:100%; aspect-ratio:1; align-self:center; transform:rotate(2deg); }
+.hero figure img { height:100%; object-fit:cover; }
+.hero .muted { font-size:.9rem; }
+.section > h2 { line-height:1.16; }
+.experiment-grid { gap:14px; }
+.experiment-card, :root[data-theme="dark"] .experiment-card {
+  padding:14px; border:1px solid var(--line); border-radius:18px;
+  background:var(--surface); box-shadow:0 5px 18px var(--hero-shadow);
+}
+.experiment-card > .eyebrow { margin-top:12px; font-size:.75rem; }
+.experiment-art {
+  display:flex; justify-content:center; align-items:center; min-height:88px;
+  border-radius:11px; gap:5px; overflow:hidden; color:var(--ink);
+}
+.experiment-art i { display:block; background:currentColor; border-radius:4px; opacity:.7; }
+.art-image { display:grid; grid-template-columns:repeat(3,13px); align-content:center; background:var(--card-mauve); }
+.art-image i { width:13px; height:13px; opacity:.28; }
+.art-image i:nth-child(3n+1) { opacity:.55; }
+.art-image i:nth-child(5) { opacity:1; }
+.art-video { background:var(--card-mint); }
+.art-video i { width:6px; height:27px; }
+.art-video i:nth-child(3n+1) { height:40px; }
+.art-video i:nth-child(3n) { height:14px; opacity:.4; }
+.art-protein { background:var(--card-blue); }
+.art-protein i { width:13px; height:13px; border-radius:50%; }
+.art-protein i:nth-child(odd) { transform:translateY(9px); }
+.art-protein i:nth-child(even) { transform:translateY(-9px); }
+.art-agent { background:var(--card-peach); }
+.art-agent i { width:18px; height:18px; border:2px solid currentColor; background:transparent; }
+.art-agent i:nth-child(2) { background:currentColor; }
+.experiment-links a { text-decoration:none; border-radius:7px; background:var(--surface-tint); padding:3px 8px; }
+.experiment-links a:hover { text-decoration:underline; }
+@media(prefers-reduced-motion:no-preference) {
+  .hero figure { transition:transform .3s ease; }
+  .hero figure:hover { transform:rotate(0); }
+  .experiment-art i { transition:scale .25s ease,opacity .25s ease; }
+  .experiment-card:is(:hover,:focus-within) .experiment-art i { scale:1.12; opacity:.9; }
+}
+@media(max-width:680px) {
+  .hero { grid-template-columns:1fr; min-height:0; margin-block:16px 32px; gap:22px; }
+  .hero figure { max-width:min(100%,420px); margin-inline:auto; transform:none; }
+  .experiment-art { min-height:72px; }
+}
 </style>
 <script>
 (() => {
@@ -247,7 +317,7 @@ section[id] { scroll-margin-top:102px; }
 </script>
 </head>
 <body>
-<div class="site-header"><header class="wrap top"><a class="brand" href="#about">ZIWEN WANG</a><nav aria-label="页面导航"><a href="#projects">项目</a><a href="#research">科研</a><a href="#education">教育</a><a href="#experiments">交互实验</a></nav><div class="site-preferences"><button id="site-language" type="button" lang="en">English</button><button id="site-theme" type="button" aria-pressed="false">☾ 黑夜</button></div></header></div>
+<div class="site-header"><header class="wrap top"><a class="brand" href="#about"><span class="brand-dot" aria-hidden="true"></span>ZIWEN WANG</a><nav aria-label="页面导航"><a href="#projects">项目</a><a href="#research">科研</a><a href="#education">教育</a><a href="#experiments">交互实验</a></nav><div class="site-preferences"><button id="site-language" type="button" lang="en">English</button><button id="site-theme" type="button" aria-pressed="false">☾ 黑夜</button></div></header></div>
 <main class="wrap">
 <section id="about" class="hero">
 <div><p class="eyebrow">北京理工大学 · 计算机科学与技术</p><h1>汪子文<span>Ziwen Wang</span></h1><p class="intro">我用执行轨迹分析智能体在哪一步出错，用局部失真证据解释图像和视频的观感，也研究如何结合序列与结构预测蛋白质功能。</p><p class="muted">2027 届硕士研究生 · AI Agent / 大模型算法</p><div class="actions"><a class="button" href="#experiments">浏览交互实验 ↓</a><a class="button outline" href="#projects">查看项目</a><a class="button outline" href="https://github.com/F1ndWANG">访问 GitHub ↗</a></div></div>
@@ -256,10 +326,10 @@ section[id] { scroll-margin-top:102px; }
 <section id="experiments" class="section experiment-index">
   <h2>交互实验</h2>
   <div class="experiment-grid">
-    <article class="experiment-card"><p class="eyebrow">失真对照</p><h3>图像质量实验室</h3><p>用对照图观察失真，用局部修复验证误差变化。</p><div class="experiment-links"><a href="#iqa">图像质量 ↗</a><a href="#attribution">局部归因 ↗</a></div></article>
-    <article class="experiment-card"><p class="eyebrow">卡顿模拟</p><h3>视频流畅度实验</h3><p>逐帧比较低帧率、重复帧和冻结。</p><div class="experiment-links"><a href="#vqa">视频流畅度 ↗</a></div></article>
-    <article class="experiment-card"><p class="eyebrow">结构与功能</p><h3>蛋白质结构图鉴</h3><p>从真实 PDB 结构进入残基接触图与功能预测演示。</p><div class="experiment-links"><a href="#structures">结构图鉴 ↗</a><a href="#protein">残基接触图 ↗</a></div></article>
-    <article class="experiment-card"><p class="eyebrow">工具调用与核验</p><h3>智能体执行实验室</h3><p>查看工具超时、独立核验和重试如何改变执行轨迹。</p><div class="experiment-links"><a href="#agent-lab">Agent 实验 ↗</a></div></article>
+    <article class="experiment-card card-image"><div class="experiment-art art-image" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><p class="eyebrow">失真对照</p><h3>图像质量实验室</h3><p>用对照图观察失真，用局部修复验证误差变化。</p><div class="experiment-links"><a href="#iqa">图像质量 ↗</a><a href="#attribution">局部归因 ↗</a></div></article>
+    <article class="experiment-card card-video"><div class="experiment-art art-video" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div><p class="eyebrow">卡顿模拟</p><h3>视频流畅度实验</h3><p>逐帧比较低帧率、重复帧和冻结。</p><div class="experiment-links"><a href="#vqa">视频流畅度 ↗</a></div></article>
+    <article class="experiment-card card-protein"><div class="experiment-art art-protein" aria-hidden="true"><i></i><i></i><i></i><i></i></div><p class="eyebrow">结构与功能</p><h3>蛋白质结构图鉴</h3><p>从真实 PDB 结构进入残基接触图与功能预测演示。</p><div class="experiment-links"><a href="#structures">结构图鉴 ↗</a><a href="#protein">残基接触图 ↗</a></div></article>
+    <article class="experiment-card card-agent"><div class="experiment-art art-agent" aria-hidden="true"><i></i><i></i><i></i></div><p class="eyebrow">工具调用与核验</p><h3>智能体执行实验室</h3><p>查看工具超时、独立核验和重试如何改变执行轨迹。</p><div class="experiment-links"><a href="#agent-lab">Agent 实验 ↗</a></div></article>
   </div>
 </section>
 <section id="projects" class="section"><h2>实习与项目</h2><div class="grid">
