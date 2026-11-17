@@ -7,6 +7,8 @@
 <meta name="theme-color" content="#edf1f5">
 <title>汪子文 Ziwen Wang | 个人主页</title>
 <link rel="stylesheet" href="style.css?v=75034dd">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css">
 <style>
 :root { --accent: #793447; }
 body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem), var(--paper); }
@@ -388,6 +390,25 @@ article { border-radius:12px; }
 @media(hover:hover) and (prefers-reduced-motion:no-preference) {
   article:hover,.button:hover,.protein-lab button:not(:disabled):hover { border-color:var(--selected-border); box-shadow:0 9px 22px var(--hero-shadow); }
 }
+
+/* Handwritten regular-script typography */
+:root { --handwritten:"LXGW WenKai","Kaiti SC","STKaiti","KaiTi",serif; }
+body { font-family:var(--handwritten); line-height:1.9; font-size:17px; }
+button,select,input { font-family:inherit; }
+:is(.protein-lab button,.iqa-controls select,.contact-panel select,.site-preferences button,.vqa-actions button) { font-family:var(--handwritten); }
+.hero h1 { font-family:var(--handwritten); font-weight:400; letter-spacing:.075em; line-height:1.23; }
+.hero h1 span { font-family:var(--handwritten); font-style:normal; font-weight:400; letter-spacing:.015em; }
+:root[lang="en"] .hero h1 { letter-spacing:.005em; }
+.hero .intro { font-size:clamp(1.08rem,1.9vw,1.28rem); line-height:1.95; }
+:is(h2,h3),.section > h2 { font-family:var(--handwritten); font-weight:400; letter-spacing:.025em; }
+.gallery h2,#protein h2 { letter-spacing:.025em; font-weight:400; }
+.eyebrow { font-weight:400; letter-spacing:.045em; }
+.top nav a,.button,.experiment-links a,.site-preferences button { font-weight:400; }
+.brand { font-family:var(--handwritten); font-weight:400; letter-spacing:.09em; }
+.experiment-card h3 { font-size:clamp(1.08rem,1.75vw,1.32rem); }
+.publication-list h3 { font-family:var(--handwritten); line-height:1.65; }
+article > p,.lab-notes p { line-height:1.9; }
+@media(max-width:680px) { body {font-size:16px;} .hero h1 {letter-spacing:.04em;} }
 </style>
 <script>
 (() => {
