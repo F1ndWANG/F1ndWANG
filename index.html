@@ -167,6 +167,17 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
   .site-preferences { margin-left:auto; }
   .top nav { order:1; flex-basis:100%; gap:8px 14px; }
 }
+.vqa-panes { display:grid; gap:12px; }
+.vqa-panes figure { max-width:none; margin:0; }
+.vqa-panes figcaption { color:var(--muted); font-size:.88rem; margin-bottom:5px; }
+.vqa-panes canvas { display:block; width:100%; height:auto; border-radius:12px; background:#221a30; }
+.vqa-actions { display:flex; gap:8px; flex-wrap:wrap; }
+.vqa-actions button { padding:7px 14px; font:inherit; border:1px solid var(--line); border-radius:999px; color:var(--ink); background:transparent; cursor:pointer; }
+.vqa-actions button:hover { border-color:var(--accent); }
+@media(prefers-reduced-motion:no-preference) {
+  .vqa-actions button { transition:scale .15s ease,border-color .15s ease; }
+  .vqa-actions button:active { scale:.96; }
+}
 </style>
 <script>
 (() => {
@@ -183,7 +194,7 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
 </script>
 </head>
 <body>
-<header class="wrap top"><a class="brand" href="#about">ZIWEN WANG</a><nav aria-label="页面导航"><a href="#projects">项目</a><a href="#research">科研</a><a href="#education">教育</a><a href="#structures">结构图鉴</a><a href="#iqa">图像质量</a></nav><div class="site-preferences"><button id="site-language" type="button" lang="en">English</button><button id="site-theme" type="button" aria-pressed="false">☾ 黑夜</button></div></header>
+<header class="wrap top"><a class="brand" href="#about">ZIWEN WANG</a><nav aria-label="页面导航"><a href="#projects">项目</a><a href="#research">科研</a><a href="#education">教育</a><a href="#structures">结构图鉴</a><a href="#iqa">图像质量</a><a href="#vqa">视频流畅度</a></nav><div class="site-preferences"><button id="site-language" type="button" lang="en">English</button><button id="site-theme" type="button" aria-pressed="false">☾ 黑夜</button></div></header>
 <main class="wrap">
 <section id="about" class="hero">
 <div><p class="eyebrow">北京理工大学 · 计算机科学与技术</p><h1>汪子文<span>Ziwen Wang</span></h1><p class="intro">我用执行轨迹分析智能体在哪一步出错，用局部失真证据解释图像和视频的观感，也研究如何结合序列与结构预测蛋白质功能。</p><p class="muted">2027 届硕士研究生 · AI Agent / 大模型算法</p><div class="actions"><a class="button" href="#projects">查看项目</a><a class="button outline" href="#structures">探索蛋白质 ↓</a><a class="button outline" href="#iqa">试试图像质量实验 ↓</a><a class="button outline" href="https://github.com/F1ndWANG">访问 GitHub ↗</a></div></div>
@@ -240,6 +251,28 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
   </div>
 </section>
 
+<section id="vqa" class="section gallery">
+  <p class="eyebrow">计算机视觉 · 时间质量</p>
+  <h2>视频流畅度实验室</h2>
+  <p>两边播放同一段合成运动。左侧按 60 Hz 的时间网格更新，右侧加入指定的时间失真。先看运动节奏，再暂停，用时间轴检查哪些画面被反复显示。</p>
+  <div class="iqa-lab vqa-lab">
+    <div class="vqa-panes">
+      <figure><figcaption>参考运动</figcaption><canvas id="vqa-ref" width="480" height="250" role="img" aria-label="参考运动：圆点在轨道上平滑移动"></canvas></figure>
+      <figure><figcaption>失真运动</figcaption><canvas id="vqa-dist" width="480" height="250" role="img" aria-label="应用时间失真后，圆点在相同轨道上移动"></canvas></figure>
+    </div>
+    <div class="iqa-controls">
+      <label>时间失真 <select id="vqa-kind"><option value="low">均匀低帧率</option><option value="repeat">周期性重复帧</option><option value="freeze">播放冻结</option></select></label>
+      <div class="vqa-actions"><button type="button" id="vqa-play">播放</button><button type="button" id="vqa-step">前进一帧</button></div>
+      <label class="iqa-range">播放位置 <input type="range" id="vqa-time" min="0" max="239" value="0" step="1"></label>
+      <div class="iqa-score"><span>参考帧／实际显示帧</span><output id="vqa-frames">000 / 000</output></div>
+      <div class="iqa-score"><span>当前画面已保持</span><output id="vqa-hold">0 ms</output></div>
+      <p id="vqa-note"></p>
+      <p class="iqa-note">页面显示的是合成时间线。即使画面没有变化，也要结合运动内容判断静止镜头与异常冻结。</p>
+    </div>
+  </div>
+  <p class="resource-links"><a href="https://www.itu.int/rec/T-REC-P.1204.3">ITU-T 视频质量模型 ↗</a><a href="#iqa">对比图像空间失真 ↑</a></p>
+</section>
+
 <section id="protein" class="section">
   <p class="eyebrow">蛋白质功能预测 · 交互演示</p>
   <h2>蛋白质如何提供功能线索？</h2>
@@ -281,10 +314,46 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
   </div>
   <p class="lab-sources"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4894841/">残基接触方法</a> · <a href="https://www.ebi.ac.uk/interpro/">InterPro</a> · <a href="https://www.geneontology.org/docs/ontology-documentation/">Gene Ontology</a></p>
 </section>
+<section id="research-notes" class="section"><h2>从实验观察到研究问题</h2><div class="grid">
+<article><h3>图像质量：失真发生在哪里？</h3><p>在图像实验里打开局部模糊和差异图，比较受影响区域与全图分数。研究中的问题是，缺少参考图时，怎样定位证据并解释它对整体观感的影响。</p></article>
+<article><h3>视频质量：画面相同，节奏为何不同？</h3><p>在流畅度实验里逐帧比较重复帧和冻结。真实的 UGC 视频还需要结合场景运动、剪辑和时间戳判断异常。</p></article>
+<article class="wide"><h3>蛋白质功能：序列之外还有什么证据？</h3><p>用接触图比较序列间隔和空间距离，再看真实结构中的主链形态。功能预测把序列、结构和功能域等证据结合起来。</p></article>
+</div></section>
 </main>
 <footer class="wrap foot"><span>汪子文 · Ziwen Wang</span><a href="https://github.com/F1ndWANG">@F1ndWANG ↗</a></footer>
 <script>
 const siteEnglish = {
+  "视频流畅度": "Video Fluency",
+  "计算机视觉 · 时间质量": "Computer Vision · Temporal Quality",
+  "视频流畅度实验室": "Video Fluency Lab",
+  "两边播放同一段合成运动。左侧按 60 Hz 的时间网格更新，右侧加入指定的时间失真。先看运动节奏，再暂停，用时间轴检查哪些画面被反复显示。": "Both views show the same synthetic motion. The reference updates on a 60 Hz timeline. The other view applies a selected temporal distortion. Watch the motion, then pause and scrub to see which frames are held.",
+  "参考运动": "Reference motion",
+  "失真运动": "Distorted motion",
+  "参考运动：圆点在轨道上平滑移动": "Reference motion: a dot moves smoothly along a track",
+  "应用时间失真后，圆点在相同轨道上移动": "The same motion with temporal distortion applied",
+  "时间失真": "Temporal distortion",
+  "均匀低帧率": "Uniform low frame rate",
+  "周期性重复帧": "Periodic repeated frames",
+  "播放冻结": "Playback freeze",
+  "播放": "Play",
+  "暂停": "Pause",
+  "前进一帧": "Step one frame",
+  "播放位置": "Timeline position",
+  "参考帧／实际显示帧": "Reference / displayed frame",
+  "当前画面已保持": "Current frame held for",
+  "页面显示的是合成时间线。即使画面没有变化，也要结合运动内容判断静止镜头与异常冻结。": "This is a synthetic timeline. A still image can be intentional, so motion context matters when distinguishing a static shot from a freeze.",
+  "ITU-T 视频质量模型 ↗": "ITU-T video quality model ↗",
+  "对比图像空间失真 ↑": "Compare spatial image distortions ↑",
+  "每 5 个时间步更新一次，形成均匀的 12 fps。运动每次前进的距离更大，容易看到跳动。": "The image updates once every five ticks, giving a uniform 12 fps. Each update covers more distance, making the motion look jumpy.",
+  "每 18 个时间步中，后 6 步重复显示第 12 步的画面，随后追上参考时间线。观察周期性的停顿和跳跃。": "In each 18-tick cycle, the last six ticks repeat the image from tick 12, then catch up to the reference. Watch for periodic pauses and jumps.",
+  "从 1.25 秒起保持同一张画面，直到 2.10 秒才追上参考时间线。观察恢复时的位置跳变。": "The image holds from 1.25 s until it catches up at 2.10 s. Watch the dot jump when playback resumes.",
+  "从实验观察到研究问题": "From demos to research questions",
+  "图像质量：失真发生在哪里？": "Image quality: Where is the distortion?",
+  "在图像实验里打开局部模糊和差异图，比较受影响区域与全图分数。研究中的问题是，缺少参考图时，怎样定位证据并解释它对整体观感的影响。": "Turn on local blur and the difference map to compare the affected region with the overall score. The research question is how to locate evidence and explain its visual impact when no reference image is available.",
+  "视频质量：画面相同，节奏为何不同？": "Video quality: Why does the same content feel different in motion?",
+  "在流畅度实验里逐帧比较重复帧和冻结。真实的 UGC 视频还需要结合场景运动、剪辑和时间戳判断异常。": "Step through repeated frames and freezes in the lab. For real UGC, motion, editing, and frame timestamps provide context for identifying anomalies.",
+  "蛋白质功能：序列之外还有什么证据？": "Protein function: What evidence is available beyond sequence?",
+  "用接触图比较序列间隔和空间距离，再看真实结构中的主链形态。功能预测把序列、结构和功能域等证据结合起来。": "Compare sequence separation with spatial distance in the contact map, then examine the backbone of an experimental structure. Function prediction combines evidence from sequence, structure, and domains.",
   "汪子文 Ziwen Wang | 个人主页": "Ziwen Wang | Personal Website",
   "汪子文，北京理工大学计算机科学与技术硕士研究生。关注 AI Agent、多模态理解与视觉质量评估。": "Ziwen Wang, computer science graduate student at Beijing Institute of Technology. Research interests include AI agents, multimodal understanding, and visual quality assessment.",
   "页面导航": "Site navigation",
@@ -961,6 +1030,116 @@ window.translateSite = text => document.documentElement.lang === 'en' && Object.
   document.addEventListener('site-language', schedule);
   portrait.src = 'portrait.jpg';
   updateSource();
+})();
+</script>
+<script>
+(() => {
+  const get = name => document.getElementById('vqa-' + name);
+  const original = get('ref').getContext('2d');
+  const distorted = get('dist').getContext('2d');
+  if (!original || !distorted) return;
+
+  const count = 240;
+  const rate = 60;
+  const explanation = {
+    low: '每 5 个时间步更新一次，形成均匀的 12 fps。运动每次前进的距离更大，容易看到跳动。',
+    repeat: '每 18 个时间步中，后 6 步重复显示第 12 步的画面，随后追上参考时间线。观察周期性的停顿和跳跃。',
+    freeze: '从 1.25 秒起保持同一张画面，直到 2.10 秒才追上参考时间线。观察恢复时的位置跳变。'
+  };
+  const kind = get('kind');
+  const slider = get('time');
+  const play = get('play');
+  let tick = 0;
+  let request = null;
+  let epoch;
+  let initialTick;
+
+  function visibleFrame(time, mode) {
+    if (mode === 'low') return Math.floor(time / 5) * 5;
+    if (mode === 'repeat') return time - Math.max(0, time % 18 - 11);
+    return time >= 75 && time < 126 ? 75 : time;
+  }
+
+  function draw(ctx, frame) {
+    const {width, height} = ctx.canvas;
+    ctx.fillStyle = '#221a30';
+    ctx.fillRect(0, 0, width, height);
+    const x = 45 + (width - 90) * frame / (count - 1);
+    const y = height / 2 - 47 * Math.sin(frame / 26);
+    ctx.beginPath();
+    for (let i = 0; i < count; i += 1) {
+      const px = 45 + (width - 90) * i / (count - 1);
+      const py = height / 2 - 47 * Math.sin(i / 26);
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.strokeStyle = '#735c88';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(x, y, 18, 0, 2 * Math.PI);
+    ctx.fillStyle = ctx === original ? '#9de8d0' : '#ffaac8';
+    ctx.fill();
+    ctx.fillStyle = '#fff1f8';
+    ctx.font = '16px ui-monospace, monospace';
+    ctx.fillText((frame / rate).toFixed(2) + ' s', 18, 29);
+  }
+
+  function render() {
+    const seen = visibleFrame(tick, kind.value);
+    draw(original, tick);
+    draw(distorted, seen);
+    slider.value = tick;
+    get('frames').textContent = [tick, seen].map(frame => String(frame).padStart(3, '0')).join(' / ');
+    get('hold').textContent = Math.round((tick - seen) * 1000 / rate) + ' ms';
+    get('note').textContent = translateSite(explanation[kind.value]);
+    play.textContent = translateSite(request === null ? '播放' : '暂停');
+  }
+
+  function animate(now) {
+    epoch ??= now;
+    const next = Math.min(count - 1, initialTick + Math.floor((now - epoch) * rate / 1000));
+    if (next === count - 1) request = null;
+    else request = requestAnimationFrame(animate);
+    if (next !== tick || request === null) {
+      tick = next;
+      render();
+    }
+  }
+
+  function pause() {
+    if (request !== null) cancelAnimationFrame(request);
+    request = null;
+  }
+
+  play.addEventListener('click', () => {
+    if (request !== null) pause();
+    else {
+      if (tick === count - 1) tick = 0;
+      initialTick = tick;
+      epoch = null;
+      request = requestAnimationFrame(animate);
+    }
+    render();
+  });
+  get('step').addEventListener('click', () => {
+    pause();
+    tick = (tick + 1) % count;
+    render();
+  });
+  slider.addEventListener('input', () => {
+    pause();
+    tick = Number(slider.value);
+    render();
+  });
+  kind.addEventListener('change', render);
+  document.addEventListener('site-language', render);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) return;
+    pause();
+    render();
+  });
+  render();
 })();
 </script>
 </body>
