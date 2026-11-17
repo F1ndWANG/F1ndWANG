@@ -80,13 +80,38 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
   .protein-lab button:not(:disabled):active { transform:scale(.94); }
   .lab-notes h3,.lab-notes p,.lab-notes ul { animation: arrive .38s cubic-bezier(.2,.85,.35,1) both; }
 }
+.gallery h2 { font-size:clamp(2rem,4vw,3.5rem); letter-spacing:-.045em; line-height:1.12; }
+.gallery > p { max-width:65ch; }
+.pdb-cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:22px 0 12px; }
+.pdb-cards button,.pdb-stage button { font:inherit; cursor:pointer; border-radius:14px; }
+.pdb-cards button { background:#fffbf6; color:#342a39; border:1px solid #dfcbd1; text-align:left; padding:18px; display:grid; gap:5px; }
+.pdb-cards button[aria-pressed="true"] { background:#f6e4ed; border-color:#ad7294; }
+.pdb-cards span { font:700 .85rem ui-monospace,monospace; color:#783f66; }
+.pdb-cards strong { font-size:1.25rem; }
+.pdb-cards small,.iqa-note { color:#665762; }
+.pdb-stage { display:grid; place-items:center; background:radial-gradient(ellipse,#faf1f5,#ece3f1); position:relative; min-height:300px; border-radius:18px; overflow:hidden; }
+.pdb-stage img { max-width:min(55%,310px); max-height:260px; object-fit:contain; mix-blend-mode:multiply; }
+.pdb-stage button { position:absolute; bottom:16px; padding:8px 18px; color:white; background:#703d68; border:1px solid #703d68; }
+.pdb-stage iframe { width:100%; height:clamp(380px,62vw,580px); border:0; }
+.resource-links { display:flex; gap:8px 20px; flex-wrap:wrap; font-size:.9rem; }
+.iqa-lab { margin-top:20px; display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:24px; padding:clamp(14px,3vw,28px); background:#fff9f5; border:1px solid #dfcbd1; border-radius:20px; }
+.iqa-visual canvas { display:block; width:100%; height:auto; border-radius:12px; background:#c9bcce; cursor:ew-resize; touch-action:pan-y; }
+.iqa-caption { margin:8px 0; font-size:.85rem; color:#665762; }
+.iqa-controls { display:grid; align-content:start; gap:12px; }
+.iqa-controls label, .iqa-range { display:flex; flex-wrap:wrap; align-items:center; gap:9px; }
+.iqa-controls select { font:inherit; background:white; color:inherit; border:1px solid #bca9be; border-radius:8px; padding:5px; }
+.iqa-range input { accent-color:#86496d; flex:1; min-width:80px; }
+.iqa-score { border-radius:12px; padding:14px 18px; background:#eee7f3; display:grid; grid-template-columns:1fr auto; align-items:center; gap:10px; }
+.iqa-score output { font:700 1.1rem ui-monospace,monospace; color:#653b65; }
+.iqa-controls p { margin:0; }
+@media(max-width:650px) { .pdb-cards,.iqa-lab {grid-template-columns:1fr;} .pdb-cards button {padding:12px;} }
 </style>
 </head>
 <body>
-<header class="wrap top"><a class="brand" href="#about">ZIWEN WANG</a><nav aria-label="页面导航"><a href="#projects">项目</a><a href="#research">科研</a><a href="#education">教育</a><a href="#protein">蛋白质演示</a></nav></header>
+<header class="wrap top"><a class="brand" href="#about">ZIWEN WANG</a><nav aria-label="页面导航"><a href="#projects">项目</a><a href="#research">科研</a><a href="#education">教育</a><a href="#structures">结构图鉴</a><a href="#iqa">图像质量</a></nav></header>
 <main class="wrap">
 <section id="about" class="hero">
-<div><p class="eyebrow">北京理工大学 · 计算机科学与技术</p><h1>汪子文<span>Ziwen Wang</span></h1><p class="intro">我用执行轨迹分析智能体在哪一步出错，用局部失真证据解释图像和视频的观感，也研究如何结合序列与结构预测蛋白质功能。</p><p class="muted">2027 届硕士研究生 · AI Agent / 大模型算法</p><div class="actions"><a class="button" href="#projects">查看项目</a><a class="button outline" href="#protein">探索蛋白质 ↓</a><a class="button outline" href="https://github.com/F1ndWANG">访问 GitHub ↗</a></div></div>
+<div><p class="eyebrow">北京理工大学 · 计算机科学与技术</p><h1>汪子文<span>Ziwen Wang</span></h1><p class="intro">我用执行轨迹分析智能体在哪一步出错，用局部失真证据解释图像和视频的观感，也研究如何结合序列与结构预测蛋白质功能。</p><p class="muted">2027 届硕士研究生 · AI Agent / 大模型算法</p><div class="actions"><a class="button" href="#projects">查看项目</a><a class="button outline" href="#structures">探索蛋白质 ↓</a><a class="button outline" href="#iqa">试试图像质量实验 ↓</a><a class="button outline" href="https://github.com/F1ndWANG">访问 GitHub ↗</a></div></div>
 <figure><img src="portrait.jpg" alt="戴圆框眼镜、身穿酒红色连帽衫，在海边竖起拇指的汪子文动漫肖像" width="800" height="800"></figure>
 </section>
 <section id="projects" class="section"><h2>实习与项目</h2><div class="grid">
@@ -102,6 +127,44 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
 <article><p class="eyebrow">2024 – 2027（预计）</p><h3>北京理工大学</h3><p>计算机科学与技术 · 硕士研究生</p></article>
 <article><p class="eyebrow">2020 – 2024</p><h3>太原科技大学</h3><p>计算机科学与技术 · 工学学士 · 专业排名第一</p></article>
 </div></section>
+<section id="structures" class="section gallery">
+  <p class="eyebrow">实验结构 · RCSB PDB</p>
+  <h2>蛋白质结构图鉴</h2>
+  <p>挑选一个 PDB 条目，在 Mol* 中拖拽旋转、缩放或切换表示方式。</p>
+  <div class="pdb-cards" role="group" aria-label="选择蛋白质结构">
+    <button type="button" data-pdb="1UBQ" aria-pressed="true"><span>1UBQ</span><strong>泛素</strong><small>观察紧凑折叠中的 β 折叠片和 α 螺旋</small></button>
+    <button type="button" data-pdb="1MBN" aria-pressed="false"><span>1MBN</span><strong>肌红蛋白</strong><small>寻找螺旋包围的血红素辅基</small></button>
+    <button type="button" data-pdb="1LYZ" aria-pressed="false"><span>1LYZ</span><strong>溶菌酶</strong><small>从不同角度观察酶的结构轮廓</small></button>
+  </div>
+  <div class="pdb-stage">
+    <img id="pdb-picture" loading="lazy" src="https://cdn.rcsb.org/images/structures/ub/1ubq/1ubq_assembly-1.jpeg" alt="RCSB PDB 结构预览">
+    <button type="button" id="pdb-launch">加载交互式 3D 结构</button>
+  </div>
+  <p class="resource-links"><a id="pdb-entry" href="https://www.rcsb.org/structure/1UBQ">结构条目 ↗</a> <a id="pdb-view" href="https://molstar.org/viewer/?pdb=1UBQ&amp;pdb-provider=rcsb">独立打开 Mol* ↗</a> <a href="#protein">体验残基接触图与 GO 教学演示 ↓</a></p>
+</section>
+
+<section id="iqa" class="section gallery">
+  <p class="eyebrow">计算机视觉 · 图像质量评估</p>
+  <h2>图像质量实验室</h2>
+  <p>选择失真类型并调节强度。拖动分割线对比原图和失真图，再打开差异图查看变化集中在哪里。</p>
+  <div class="iqa-lab">
+    <div class="iqa-visual">
+      <canvas id="iqa-canvas" width="420" height="420" role="img" aria-label="原图与失真图滑动对比"></canvas>
+      <p id="iqa-caption" class="iqa-caption">左 · 原图　／　右 · 失真</p>
+      <label class="iqa-range">对比分割线 <input id="iqa-split" type="range" min="0" max="100" value="50"></label>
+    </div>
+    <div class="iqa-controls">
+      <label>实验图片 <select id="iqa-source"><option value="portrait">主页肖像</option><option value="chart">合成测试卡</option></select></label>
+      <label>失真类型 <select id="iqa-mode"><option value="blur">高斯模糊</option><option value="noise">随机噪声</option><option value="jpeg">JPEG 压缩</option><option value="exposure">过曝剪切</option><option value="local">局部模糊</option></select></label>
+      <label class="iqa-range">失真强度 <input id="iqa-level" type="range" min="0" max="100" value="55"><output id="iqa-level-value">55</output></label>
+      <label><input id="iqa-difference" type="checkbox"> 显示像素差异图</label>
+      <div class="iqa-score"><span>PSNR · 全参考像素指标</span><output id="iqa-score" aria-live="polite">计算中</output></div>
+      <p id="iqa-tip"></p>
+      <p class="iqa-note">PSNR 由原图与失真图的像素误差计算。试着把两种失真调到接近的 PSNR，再比较它们的视觉影响。</p>
+    </div>
+  </div>
+</section>
+
 <section id="protein" class="section">
   <p class="eyebrow">蛋白质功能预测 · 交互演示</p>
   <h2>蛋白质如何提供功能线索？</h2>
@@ -385,6 +448,213 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
   });
   draw();
   drawMap();
+})();
+</script>
+<script>
+(() => {
+  const cards = [...document.querySelectorAll('[data-pdb]')];
+  const launch = document.querySelector('#pdb-launch');
+  const picture = document.querySelector('#pdb-picture');
+  const entry = document.querySelector('#pdb-entry');
+  const viewer = document.querySelector('#pdb-view');
+  let pdb = '1UBQ';
+  let frame = null;
+
+  function showStructure() {
+    frame.title = 'Mol* 三维分子结构 · ' + pdb;
+    frame.src = viewer.href;
+  }
+
+  cards.forEach(card => card.addEventListener('click', () => {
+    if (pdb === card.dataset.pdb) return;
+    pdb = card.dataset.pdb;
+    cards.forEach(item => item.setAttribute('aria-pressed', String(item === card)));
+    const key = pdb.toLowerCase();
+    picture.src = 'https://cdn.rcsb.org/images/structures/' + key.slice(1, 3) + '/' + key + '/' + key + '_assembly-1.jpeg';
+    entry.href = 'https://www.rcsb.org/structure/' + pdb;
+    viewer.href = 'https://molstar.org/viewer/?pdb=' + pdb + '&pdb-provider=rcsb';
+    if (frame) showStructure();
+  }));
+  launch.addEventListener('click', () => {
+    frame = document.createElement('iframe');
+    frame.allowFullscreen = true;
+    showStructure();
+    launch.parentElement.replaceChildren(frame);
+    frame.focus();
+  });
+})();
+
+(() => {
+  const byId = name => document.getElementById('iqa-' + name);
+  const canvas = byId('canvas');
+  const view = canvas.getContext('2d');
+  if (!view) return;
+  const size = canvas.width;
+  function buffer() {
+    const node = document.createElement('canvas');
+    node.width = node.height = size;
+    return node.getContext('2d', { willReadFrequently: true });
+  }
+  const ref = buffer(), distorted = buffer(), heat = buffer();
+  const mode = byId('mode'), level = byId('level'), split = byId('split');
+  const source = byId('source'), difference = byId('difference'), score = byId('score');
+  const portrait = new Image();
+  let revision = 0;
+  let pending = false;
+  let dragging = false;
+  let original;
+  const tips = {
+    blur: '观察眼镜边缘、发丝或测试卡细线。模糊会削弱高频细节。',
+    noise: '观察平坦区域。噪声会引入原图没有的随机亮暗变化。',
+    jpeg: '观察边缘与色块交界。低质量压缩可能出现块效应和边缘振铃。',
+    exposure: '观察亮部。像素达到上限后，不同亮度会合并成相同的数值。',
+    local: '模糊集中在图像中央。局部观感变化可能被全图平均误差稀释。'
+  };
+
+  function chart() {
+    ref.fillStyle = '#eae2d5';
+    ref.fillRect(0, 0, size, size);
+    const ramp = ref.createLinearGradient(0, 0, size, 0);
+    ramp.addColorStop(0, '#181820');
+    ramp.addColorStop(1, '#fff');
+    ref.fillStyle = ramp;
+    ref.fillRect(0, 0, size, 110);
+    ['#9180c5','#ec9b9c','#67b6a9','#e6bb51'].forEach((color, i) => {
+      ref.fillStyle = color;
+      ref.fillRect(i * 105, 110, 105, 88);
+    });
+    ref.fillStyle = '#23263a';
+    ref.font = '700 34px sans-serif';
+    ref.fillText('Detail  /  Texture', 23, 252);
+    for (let x = 20; x < 401; x += 7) {
+      ref.fillRect(x, 280, x < 180 ? 1 : 3, 110);
+    }
+  }
+
+  function paint() {
+    view.drawImage(ref.canvas, 0, 0);
+    const showHeat = difference.checked;
+    byId('caption').textContent = showHeat ? '差异图 · 越亮代表像素变化越大' : '左 · 原图　／　右 · 失真';
+    split.disabled = showHeat;
+    canvas.setAttribute('aria-label', showHeat ? '原图与失真图的像素差异图' : '原图与失真图滑动对比');
+    if (showHeat) { view.drawImage(heat.canvas, 0, 0); return; }
+    const x = Math.round(Number(split.value) / 100 * size);
+    if (x < size) view.drawImage(distorted.canvas, x, 0, size - x, size, x, 0, size - x, size);
+    view.fillStyle = '#fff';
+    view.fillRect(Math.min(x, size - 2), 0, 2, size);
+  }
+
+  function measure() {
+    const data = distorted.getImageData(0, 0, size, size).data;
+    const map = heat.createImageData(size, size);
+    let sum = 0;
+    for (let i = 0; i < data.length; i += 4) {
+      let delta = 0;
+      for (let c = 0; c < 3; c++) {
+        const error = data[i + c] - original.data[i + c];
+        sum += error * error;
+        delta += Math.abs(error);
+      }
+      const value = Math.min(255, delta * 1.7);
+      map.data[i] = value;
+      map.data[i + 1] = value * .7;
+      map.data[i + 2] = value * .9;
+      map.data[i + 3] = 255;
+    }
+    heat.putImageData(map, 0, 0);
+    score.textContent = sum ? (10 * Math.log10(255 ** 2 * size * size * 3 / sum)).toFixed(2) + ' dB' : '∞ dB';
+    paint();
+  }
+
+  function render() {
+    pending = false;
+    const ticket = revision;
+    const kind = mode.value;
+    const amount = Number(level.value) / 100;
+    byId('level-value').textContent = level.value;
+    byId('tip').textContent = tips[kind];
+    distorted.drawImage(ref.canvas, 0, 0);
+    if (!amount) { measure(); return; }
+
+    if (kind === 'jpeg') {
+      score.textContent = '计算中';
+      const image = new Image();
+      image.onload = () => {
+        if (ticket !== revision) return;
+        distorted.drawImage(image, 0, 0);
+        measure();
+      };
+      image.onerror = () => { if (ticket === revision) score.textContent = '压缩预览不可用'; };
+      image.src = ref.canvas.toDataURL('image/jpeg', 1 - amount * .97);
+      return;
+    }
+    if (kind === 'blur' || kind === 'local') {
+      distorted.save();
+      if (kind === 'local') {
+        distorted.beginPath();
+        distorted.arc(size * .5, size * .49, size * .17, 0, Math.PI * 2);
+        distorted.clip();
+      }
+      distorted.filter = 'blur(' + (12 * amount) + 'px)';
+      distorted.drawImage(ref.canvas, 0, 0);
+      distorted.restore();
+    } else {
+      const pixels = new ImageData(new Uint8ClampedArray(original.data), size, size);
+      let seed = 314159;
+      for (let i = 0; i < pixels.data.length; i += 4) {
+        seed = (Math.imul(1664525, seed) + 1013904223) >>> 0;
+        const noise = (seed / 4294967296 - .5) * 180 * amount;
+        for (let c = 0; c < 3; c++) {
+          const value = pixels.data[i + c];
+          pixels.data[i + c] = kind === 'noise' ? value + noise : value * (1 + amount * 2.3);
+        }
+      }
+      distorted.putImageData(pixels, 0, 0);
+    }
+    measure();
+  }
+
+  function schedule() {
+    revision++;
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(render);
+  }
+
+  function updateSource() {
+    if (source.value === 'portrait' && portrait.naturalWidth) ref.drawImage(portrait, 0, 0, size, size);
+    else chart();
+    original = ref.getImageData(0, 0, size, size);
+    schedule();
+  }
+
+  function moveDivider(event) {
+    const bounds = canvas.getBoundingClientRect();
+    split.value = Math.max(0, Math.min(100, (event.clientX - bounds.left) / bounds.width * 100));
+    paint();
+  }
+
+  canvas.addEventListener('pointerdown', event => {
+    if (difference.checked || event.button !== 0) return;
+    dragging = true;
+    canvas.setPointerCapture(event.pointerId);
+    moveDivider(event);
+  });
+  canvas.addEventListener('pointermove', event => { if (dragging) moveDivider(event); });
+  canvas.addEventListener('lostpointercapture', () => { dragging = false; });
+  split.addEventListener('input', paint);
+  difference.addEventListener('change', paint);
+  mode.addEventListener('change', schedule);
+  level.addEventListener('input', schedule);
+  source.addEventListener('change', updateSource);
+  portrait.onload = updateSource;
+  portrait.onerror = () => {
+    source.querySelector('[value="portrait"]').disabled = true;
+    source.value = 'chart';
+    updateSource();
+  };
+  portrait.src = 'portrait.jpg';
+  updateSource();
 })();
 </script>
 </body>
