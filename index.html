@@ -59,6 +59,27 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
 .contact-panel output { color:#ffcf80; display:block; min-height:3em; font-variant-numeric:tabular-nums; }
 .contact-caption { color:#b9cbe1; font-size:.84rem; }
 @media(max-width:680px) { .lab-grid,.contact-panel {grid-template-columns:1fr;} .contact-panel canvas {max-width:290px;} }
+
+/* Warm, illustrated palette for the protein exhibit. */
+.protein-lab { color:#392949; background:#fff8fa; border-color:#ead1de; box-shadow:0 20px 50px #65345a1f; }
+.lab-steps { background:#fff0f5; border-color:#ead1de; }
+.protein-lab button { color:#573157; background:#fff; border-color:#d9b5ce; border-radius:999px; }
+.protein-lab button[aria-pressed="true"] { color:#40234b; background:#efc6e3; border-color:#ba73a8; }
+.protein-lab button:focus-visible { outline-color:#8b4683; }
+.lab-visual { background:radial-gradient(circle at 68% 24%,#ffe2eb,transparent 36%),radial-gradient(circle at 24% 75%,#d9f3eb,transparent 45%),#f4eaff; }
+.lab-visual::before { background:radial-gradient(circle,#a67d9d49 1px,transparent 1.5px); background-size:20px 20px; mask-image:none; }
+.lab-notes { background:linear-gradient(155deg,#fffaf8,#f8e9f5); }
+.lab-notes h3,.contact-panel h3 { color:#673861; }
+.lab-controls,.contact-panel { background:#fff7fa; border-color:#ead1de; }
+.lab-legend,.lab-controls span,.contact-caption { color:#654963; }
+.lab-legend span,.contact-panel output { color:#75416b; }
+.contact-panel select { background:#fff; color:#4c3050; border-color:#d9b5ce; }
+@media(prefers-reduced-motion:no-preference) {
+  .protein-lab button { transition:background-color .2s,box-shadow .2s,transform .28s cubic-bezier(.2,1.65,.4,1); }
+  .protein-lab button:not(:disabled):hover { transform:translateY(-3px); box-shadow:0 6px 12px #99588325; }
+  .protein-lab button:not(:disabled):active { transform:scale(.94); }
+  .lab-notes h3,.lab-notes p,.lab-notes ul { animation: arrive .38s cubic-bezier(.2,.85,.35,1) both; }
+}
 </style>
 </head>
 <body>
@@ -95,7 +116,7 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
     <div class="lab-grid">
       <div class="lab-visual">
         <canvas width="720" height="400" role="img" aria-label="示意残基链，按步骤显示序列、空间结构和候选功能域"></canvas>
-        <p class="lab-legend">● 残基　━ 主链　<span>┈ 所选残基对 / 金色功能域</span></p>
+        <p class="lab-legend">● 残基　━ 主链　<span>┈ 所选残基对 / 蜜桃色功能域</span></p>
       </div>
       <div class="lab-notes" aria-live="polite" aria-atomic="true">
         <h3>序列提供什么线索？</h3>
@@ -108,7 +129,7 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
       <span>教学模型 · 示意坐标与标签</span>
     </div>
     <div class="contact-panel">
-      <div><canvas id="contact-map" width="290" height="290" aria-label="按残基编号排列的接触矩阵。可用右侧选择框操作。"></canvas><p class="contact-caption">青色表示接触，金框标记所选残基对。</p></div>
+      <div><canvas id="contact-map" width="290" height="290" aria-label="按残基编号排列的接触矩阵。可用右侧选择框操作。"></canvas><p class="contact-caption">薄荷绿表示接触，玫红框标记所选残基对。</p></div>
       <div>
         <h3>残基接触图</h3>
         <p>点矩阵任意格，或选择两个残基。结构视图同步高亮该残基对。</p>
@@ -167,15 +188,15 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
     mapCtx.textAlign = 'center';
     for (let i = 0; i < chain.length; i++) {
       const y = origin + i * pitch;
-      mapCtx.fillStyle = '#b9cbe1';
+      mapCtx.fillStyle = '#654963';
       mapCtx.fillText(i + 1, 14, y + 12);
       mapCtx.fillText(i + 1, origin + i * pitch + 8, 20);
       for (let j = 0; j < chain.length; j++) {
         const x = origin + j * pitch;
-        mapCtx.fillStyle = isContact(i, j) ? '#65d8c7' : i === j ? '#485d76' : '#263a53';
+        mapCtx.fillStyle = isContact(i, j) ? '#89d8c3' : i === j ? '#c6a3cd' : '#ecdce9';
         mapCtx.fillRect(x, y, pitch - 2, pitch - 2);
         if ((i === a && j === b) || (i === b && j === a)) {
-          mapCtx.strokeStyle = '#ffcf80';
+          mapCtx.strokeStyle = '#94396e';
           mapCtx.lineWidth = 2;
           mapCtx.strokeRect(x + 1, y + 1, pitch - 4, pitch - 4);
         }
@@ -203,8 +224,8 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
   const domain = i => i >= 8 && i <= 12;
   const copy = [
     ['序列提供什么线索？','沿主链读取氨基酸顺序。蛋白质语言模型可以将序列编码为特征，供下游任务使用。'],
-    ['折叠让远距离残基相遇','金色虚线连接接触图中选中的残基对。对比序列间隔和三维距离，就能看到残基图中的空间边如何补充主链信息。'],
-    ['功能域提供先验','金色标出一段候选功能域。InterPro 可基于蛋白质序列匹配家族、结构域和功能位点特征，提供功能线索。'],
+    ['折叠让远距离残基相遇','玫红虚线连接接触图中选中的残基对。对比序列间隔和三维距离，就能看到残基图中的空间边如何补充主链信息。'],
+    ['功能域提供先验','蜜桃色标出一段候选功能域。InterPro 可基于蛋白质序列匹配家族、结构域和功能位点特征，提供功能线索。'],
     ['把证据映射到 GO 标签','模型可以融合序列、空间结构和功能域特征，预测多个 GO 标签。下面是三个维度的独立示例。']
   ];
   const goExamples = ['分子功能（MF）· 激酶活性','生物过程（BP）· 信号转导','细胞组分（CC）· 细胞质'];
@@ -215,6 +236,7 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
   let frame = null;
   let lastTime = null;
   let spinning = false;
+  let pop = 0;
 
   function draw() {
     if (!ctx) return;
@@ -238,16 +260,26 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
       ctx.lineTo(b.x, b.y);
       ctx.stroke();
     };
-    points.slice(1).forEach((point, i) => stroke(points[i], point, index >= 2 && domain(i) && domain(i + 1) ? '#ffcf80' : '#658ea9', 4));
-    if (index === 1 && folded > .65) stroke(points[pair[0]], points[pair[1]], '#ffcf80', 3, [7, 6]);
+    points.slice(1).forEach((point, i) => stroke(points[i], point, index >= 2 && domain(i) && domain(i + 1) ? '#d68158' : '#a082a7', 4));
+    if (index === 1 && folded > .65) stroke(points[pair[0]], points[pair[1]], '#a14078', 3, [7, 6]);
     points.forEach((point, i) => {
+      const selected = index === 1 && pair.includes(i);
+      const bounce = selected ? Math.sin(pop * Math.PI) * 4 : 0;
+      if (selected) {
+        ctx.setLineDash([]);
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, 20 + bounce, 0, 2 * Math.PI);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = '#a14078';
+        ctx.stroke();
+      }
       const highlight = (index === 1 && pair.includes(i)) || (index >= 2 && domain(i));
       ctx.beginPath();
-      ctx.arc(point.x, point.y, 15, 0, 2 * Math.PI);
+      ctx.arc(point.x, point.y, 15 + bounce, 0, 2 * Math.PI);
       const gloss = ctx.createRadialGradient(point.x - 5, point.y - 6, 1, point.x, point.y, 17);
-      gloss.addColorStop(0, highlight ? '#fff2ba' : '#d9fff4');
-      gloss.addColorStop(.65, highlight ? '#ffcf80' : '#89eadb');
-      gloss.addColorStop(1, highlight ? '#c3853a' : '#429c99');
+      const palette = [['#fffbff','#e8c2f4','#bc84ce'],['#fafffe','#b8ebdc','#70bfb2'],['#fff9f8','#fac9d9','#db8aa9']];
+      const colors = highlight ? ['#fff9ea','#ffc8ac','#dd8a6f'] : palette[i % palette.length];
+      colors.forEach((color, stop) => gloss.addColorStop([0,.66,1][stop], color));
       ctx.fillStyle = gloss;
       ctx.fill();
       ctx.fillStyle = '#112439';
@@ -255,6 +287,13 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(sequence[i], point.x, point.y);
+      if (selected && folded > .92) {
+        ctx.fillStyle = '#be6484';
+        ctx.beginPath();
+        ctx.ellipse(point.x - 9, point.y + 6, 2.6, 1.5, 0, 0, 2 * Math.PI);
+        ctx.ellipse(point.x + 9, point.y + 6, 2.6, 1.5, 0, 0, 2 * Math.PI);
+        ctx.fill();
+      }
     });
   }
 
@@ -265,9 +304,10 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
     lastTime = time;
     folded += (target - folded) * Math.min(1, elapsed / 120);
     if (Math.abs(target - folded) < .003) folded = target;
+    pop = Math.max(0, pop - elapsed / 580);
     if (spinning) angle += elapsed / 1800;
     draw();
-    if (folded !== target || spinning) schedule();
+    if (folded !== target || spinning || pop > 0) schedule();
     else lastTime = null;
   }
 
@@ -290,6 +330,7 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
 
   function select(next) {
     index = next;
+    pop = next === 1 && !reduced.matches ? 1 : 0;
     steps.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
     if (next === 0) {
       stopRotation();
