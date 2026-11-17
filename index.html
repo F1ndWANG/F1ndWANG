@@ -185,6 +185,10 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
 .vqa-actions button:disabled { opacity:.55; cursor:default; }
 @media(max-width:650px) { .agent-events { border-left:0; border-top:1px solid var(--line); padding:14px 0 0; } }
 @media(prefers-reduced-motion:no-preference) { .agent-events li.is-new { animation:arrive .32s ease-out both; } }
+.attribution-images { display:grid; align-content:start; gap:12px; min-width:0; }
+.attribution-images figure { margin:0; max-width:none; }
+.attribution-images figcaption { color:var(--muted); font-size:.88rem; margin-bottom:5px; }
+.attribution-images canvas { display:block; width:100%; height:auto; border-radius:12px; }
 </style>
 <script>
 (() => {
@@ -201,7 +205,7 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
 </script>
 </head>
 <body>
-<header class="wrap top"><a class="brand" href="#about">ZIWEN WANG</a><nav aria-label="页面导航"><a href="#projects">项目</a><a href="#research">科研</a><a href="#education">教育</a><a href="#structures">结构图鉴</a><a href="#iqa">图像质量</a><a href="#vqa">视频流畅度</a><a href="#agent-lab">Agent 实验</a></nav><div class="site-preferences"><button id="site-language" type="button" lang="en">English</button><button id="site-theme" type="button" aria-pressed="false">☾ 黑夜</button></div></header>
+<header class="wrap top"><a class="brand" href="#about">ZIWEN WANG</a><nav aria-label="页面导航"><a href="#projects">项目</a><a href="#research">科研</a><a href="#education">教育</a><a href="#structures">结构图鉴</a><a href="#iqa">图像质量</a><a href="#attribution">局部归因</a><a href="#vqa">视频流畅度</a><a href="#agent-lab">Agent 实验</a></nav><div class="site-preferences"><button id="site-language" type="button" lang="en">English</button><button id="site-theme" type="button" aria-pressed="false">☾ 黑夜</button></div></header>
 <main class="wrap">
 <section id="about" class="hero">
 <div><p class="eyebrow">北京理工大学 · 计算机科学与技术</p><h1>汪子文<span>Ziwen Wang</span></h1><p class="intro">我用执行轨迹分析智能体在哪一步出错，用局部失真证据解释图像和视频的观感，也研究如何结合序列与结构预测蛋白质功能。</p><p class="muted">2027 届硕士研究生 · AI Agent / 大模型算法</p><div class="actions"><a class="button" href="#projects">查看项目</a><a class="button outline" href="#structures">探索蛋白质 ↓</a><a class="button outline" href="#iqa">试试图像质量实验 ↓</a><a class="button outline" href="https://github.com/F1ndWANG">访问 GitHub ↗</a></div></div>
@@ -258,6 +262,23 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
   </div>
 </section>
 
+<section id="attribution" class="section gallery">
+<h2>局部失真归因实验</h2><p>两张图受到同样强度、同样面积的干扰。A 的干扰盖住文字，B 的干扰落在背景。先比较阅读体验，再修复其中一个区域。</p>
+<div class="iqa-lab attribution-lab">
+<div class="attribution-images">
+<figure><figcaption>A · 文字区域受扰</figcaption><canvas width="360" height="200" role="img" aria-label="A · 文字区域受扰" id="attrib-a"></canvas></figure>
+<figure><figcaption>B · 背景区域受扰</figcaption><canvas width="360" height="200" role="img" aria-label="B · 背景区域受扰" id="attrib-b"></canvas></figure>
+</div>
+<div class="iqa-controls">
+<label class="iqa-range">干扰强度 <input type="range" id="attrib-strength" min="0" max="55" value="42"><output id="attrib-value">42</output></label>
+<label><input type="checkbox" id="attrib-outline" checked> 标出受扰区域</label>
+<label>局部修复 <select id="attrib-repair"><option value="none">不修复</option><option value="text">修复文字区域</option><option value="background">修复背景区域</option></select></label>
+<div class="iqa-score"><span>A 的全图 PSNR</span><output id="attrib-score-a"></output></div>
+<div class="iqa-score"><span>B 的全图 PSNR</span><output id="attrib-score-b"></output></div>
+<p>局部修复直接用原图替换指定区域。两图修复前的 PSNR 相同，因为误差幅度和像素数相同。你可以比较哪张图更难读。</p><p class="iqa-note">这是有参考图的合成实验。PSNR 变化表示像素误差的变化，实际观感仍要用主观评价检验。</p>
+</div></div>
+<p class="resource-links"><a href="https://pubmed.ncbi.nlm.nih.gov/15376593/">阅读：从像素误差到结构相似性 ↗</a><a href="#iqa">返回图像质量实验 ↑</a></p>
+</section>
 <section id="vqa" class="section gallery">
   <p class="eyebrow">计算机视觉 · 时间质量</p>
   <h2>视频流畅度实验室</h2>
@@ -338,6 +359,23 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
 <footer class="wrap foot"><span>汪子文 · Ziwen Wang</span><a href="https://github.com/F1ndWANG">@F1ndWANG ↗</a></footer>
 <script>
 const siteEnglish = {
+  "局部归因": "Local Attribution",
+  "局部失真归因实验": "Local Distortion Attribution Lab",
+  "两张图受到同样强度、同样面积的干扰。A 的干扰盖住文字，B 的干扰落在背景。先比较阅读体验，再修复其中一个区域。": "Both images have the same perturbation strength and area. In A it covers text; in B it affects the background. Compare readability, then repair a region.",
+  "A · 文字区域受扰": "A · Distortion over text",
+  "B · 背景区域受扰": "B · Distortion over background",
+  "干扰强度": "Perturbation strength",
+  "标出受扰区域": "Outline distorted regions",
+  "局部修复": "Local repair",
+  "不修复": "No repair",
+  "修复文字区域": "Repair text region",
+  "修复背景区域": "Repair background region",
+  "A 的全图 PSNR": "Image A global PSNR",
+  "B 的全图 PSNR": "Image B global PSNR",
+  "局部修复直接用原图替换指定区域。两图修复前的 PSNR 相同，因为误差幅度和像素数相同。你可以比较哪张图更难读。": "Local repair replaces the selected region with its original pixels. Both images start with the same PSNR because the error magnitude and the number of affected pixels match. Compare which image is harder to read.",
+  "这是有参考图的合成实验。PSNR 变化表示像素误差的变化，实际观感仍要用主观评价检验。": "This synthetic experiment has a reference image. A change in PSNR measures pixel error; subjective evaluation is needed to assess visual quality.",
+  "阅读：从像素误差到结构相似性 ↗": "Read: From pixel error to structural similarity ↗",
+  "返回图像质量实验 ↑": "Back to the image quality lab ↑",
   "Agent 实验": "Agent Lab",
   "智能体执行实验室": "Agent Execution Lab",
   "核对三段视频的卡顿总时长：180、0、320 ms。切换故障情景和调用预算，观察执行、独立核验和恢复。": "Audit three video stall durations: 180, 0, and 320 ms. Change the failure scenario and call budget to inspect execution, verification, and recovery.",
@@ -1258,6 +1296,82 @@ window.translateSite = text => document.documentElement.lang === 'en' && Object.
     events.forEach(event => render(event));
   });
   reset();
+})();
+</script>
+<script>
+(() => {
+  const get = id => document.getElementById('attrib-' + id);
+  const canvas = get('a');
+  const width = canvas.width, height = canvas.height;
+  const base = document.createElement('canvas');
+  base.width = width;
+  base.height = height;
+  const context = base.getContext('2d', {willReadFrequently:true});
+  const views = [get('a').getContext('2d'), get('b').getContext('2d')];
+  if (!context || views.some(view => !view)) return;
+
+  // Keep reference channels in [55, 200] so signed perturbations never clip.
+  context.fillStyle = '#765779';
+  context.fillRect(0, 0, width, height);
+  context.fillStyle = '#554368';
+  context.fillRect(0, 0, width, 35);
+  context.fillRect(0, 165, width, 35);
+  context.fillStyle = '#c8b9c8';
+  context.font = 'bold 12px system-ui';
+  context.fillText('FIELD NOTES', 23, 23);
+  context.font = 'bold 24px system-ui';
+  context.fillText('NORTH', 23, 105);
+  context.font = '12px system-ui';
+  context.fillText('19:45  /  Platform 06', 23, 128);
+  context.fillText('OBSERVATION STATION', 23, 187);
+  const original = context.getImageData(0, 0, width, height);
+  const strength = get('strength'), repair = get('repair'), outline = get('outline');
+  const regions = [{key:'text', x:18, y:73},{key:'background', x:192, y:73}];
+  const patchWidth = 150, patchHeight = 68;
+  let request = null;
+
+  function render() {
+    request = null;
+    const amplitude = Number(strength.value);
+    get('value').textContent = amplitude;
+    regions.forEach(({key, x, y}, index) => {
+      const shown = new ImageData(new Uint8ClampedArray(original.data), width, height);
+      const applies = amplitude > 0 && repair.value !== key;
+      let squaredError = 0;
+      if (applies) {
+        for (let row = 0; row < patchHeight; row++) {
+          for (let col = 0; col < patchWidth; col++) {
+            const delta = ((row * 13 + col * 7) % 17 < 8 ? 1 : -1) * amplitude;
+            const offset = ((y + row) * width + x + col) * 4;
+            for (let channel = 0; channel < 3; channel++) {
+              const i = offset + channel;
+              shown.data[i] += delta;
+              squaredError += (shown.data[i] - original.data[i]) ** 2;
+            }
+          }
+        }
+      }
+      const view = views[index];
+      view.putImageData(shown, 0, 0);
+      if (outline.checked && applies) {
+        // Annotation is drawn after measuring the pixels.
+        view.strokeStyle = '#ffd6eb';
+        view.lineWidth = 2;
+        view.strokeRect(x, y, patchWidth, patchHeight);
+      }
+      const mse = squaredError / (width * height * 3);
+      get(index === 0 ? 'score-a' : 'score-b').textContent = mse ? (10 * Math.log10(255 ** 2 / mse)).toFixed(2) + ' dB' : '∞ dB';
+    });
+  }
+
+  strength.addEventListener('input', () => {
+    if (request === null) request = requestAnimationFrame(render);
+  });
+  for (const control of [repair, outline]) control.addEventListener('change', () => {
+    if (request !== null) cancelAnimationFrame(request);
+    render();
+  });
+  render();
 })();
 </script>
 </body>
