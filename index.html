@@ -113,9 +113,77 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
   .pdb-cards strong { font-size:.95rem; }
 }
 </style>
+<style>
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper:#19151f; --ink:#f4eaf1; --muted:#d0bfce; --accent:#ffb2cb; --line:#514256;
+}
+:root[data-theme="dark"] body { background:radial-gradient(ellipse at 82% 5%,#322036,transparent 30rem),var(--paper); }
+:root[data-theme="dark"] article,
+:root[data-theme="dark"] .pdb-cards button,
+:root[data-theme="dark"] .iqa-lab,
+:root[data-theme="dark"] .protein-lab,
+:root[data-theme="dark"] .lab-controls,
+:root[data-theme="dark"] .contact-panel { background:#251e2c; border-color:var(--line); color:var(--ink); }
+:root[data-theme="dark"] :is(.lab-steps,.lab-notes,.iqa-score) { background:#302538; border-color:var(--line); }
+:root[data-theme="dark"] :is(.pdb-cards small,.iqa-note,.iqa-caption,.lab-legend,.lab-controls span,.contact-caption) { color:var(--muted); }
+:root[data-theme="dark"] :is(.pdb-cards span,.iqa-score output,.lab-notes h3,.contact-panel h3,.contact-panel output,.lab-legend span) { color:#ffc0da; }
+:root[data-theme="dark"] .button:not(.outline) { color:#2c1524; }
+:root[data-theme="dark"] .hero .actions a[href="#structures"] { background:#302538; }
+:root[data-theme="dark"] :is(.protein-lab button,.contact-panel select,.iqa-controls select) { background:#38283e; color:var(--ink); border-color:#806381; }
+:root[data-theme="dark"] :is(.protein-lab button,.pdb-cards button)[aria-pressed="true"] { background:#57334e; color:#ffe1ee; border-color:#cf90b8; }
+:root[data-theme="dark"] .pdb-stage img { mix-blend-mode:normal; }
+:root[data-theme="dark"] .pdb-stage { background:radial-gradient(ellipse,#e5cedf,#bda6c4); }
+:root[data-theme="dark"] .lab-controls { border-color:var(--line); }
+.top { flex-wrap:wrap; gap:12px 20px; }
+.top nav { flex:1 1 auto; align-items:center; }
+.site-preferences { display:flex; align-items:center; gap:7px; }
+.site-preferences button { border:1px solid var(--line); background:transparent; color:var(--ink); border-radius:999px; padding:5px 11px; font:inherit; font-size:.86rem; cursor:pointer; white-space:nowrap; }
+.site-preferences button:focus-visible,.pdb-cards button:focus-visible,.pdb-stage button:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+.site-preferences button:hover { border-color:var(--accent); color:var(--accent); }
+:root[lang="en"] h1 span { display:none; }
+:root[lang="en"] .hero h1 { font-size:clamp(3rem,6vw,5.1rem); }
+.top nav a { position:relative; }
+.top nav a:hover { text-decoration:none; }
+.top nav a::after { content:""; position:absolute; inset:auto 0 0; height:2px; background:var(--accent); transform:scaleX(0); transform-origin:left; }
+.top nav a:is(:hover,:focus-visible,[aria-current="location"])::after { transform:scaleX(1); }
+@keyframes preview-in {
+  from { opacity:.35; transform:translateY(6px) scale(.97); }
+  to { opacity:1; transform:none; }
+}
+@media(prefers-reduced-motion:no-preference) {
+  .top nav a::after { transition:transform .22s ease; }
+  .pdb-stage img { animation:preview-in .38s cubic-bezier(.2,.8,.3,1) both; }
+  :is(.pdb-cards button,.pdb-stage button,.site-preferences button) { transition:transform .2s ease,border-color .2s ease,background-color .2s ease,box-shadow .2s ease; }
+  :is(.pdb-cards button,.pdb-stage button,.site-preferences button):active { scale:.97; }
+  @media(hover:hover) {
+    :is(.pdb-cards button,.site-preferences button):hover { transform:translateY(-3px); box-shadow:0 8px 18px #63365528; }
+  }
+  @supports(animation-timeline:view()) {
+    :is(.pdb-cards,.iqa-lab,.protein-lab) { animation:reveal-card linear both; animation-timeline:view(); animation-range:entry 0% entry 45%; }
+  }
+}
+@media(max-width:680px) {
+  .site-preferences { margin-left:auto; }
+  .top nav { order:1; flex-basis:100%; gap:8px 14px; }
+}
+</style>
+<script>
+(() => {
+  const root = document.documentElement;
+  let theme, language;
+  try {
+    theme = localStorage.getItem('portfolio-theme');
+    language = localStorage.getItem('portfolio-language');
+  } catch {}
+  if (language === 'en') root.lang = 'en';
+  if (theme === 'light' || theme === 'dark') root.dataset.themeOverride = 'true';
+  root.dataset.theme = root.dataset.themeOverride ? theme : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+})();
+</script>
 </head>
 <body>
-<header class="wrap top"><a class="brand" href="#about">ZIWEN WANG</a><nav aria-label="页面导航"><a href="#projects">项目</a><a href="#research">科研</a><a href="#education">教育</a><a href="#structures">结构图鉴</a><a href="#iqa">图像质量</a></nav></header>
+<header class="wrap top"><a class="brand" href="#about">ZIWEN WANG</a><nav aria-label="页面导航"><a href="#projects">项目</a><a href="#research">科研</a><a href="#education">教育</a><a href="#structures">结构图鉴</a><a href="#iqa">图像质量</a></nav><div class="site-preferences"><button id="site-language" type="button" lang="en">English</button><button id="site-theme" type="button" aria-pressed="false">☾ 黑夜</button></div></header>
 <main class="wrap">
 <section id="about" class="hero">
 <div><p class="eyebrow">北京理工大学 · 计算机科学与技术</p><h1>汪子文<span>Ziwen Wang</span></h1><p class="intro">我用执行轨迹分析智能体在哪一步出错，用局部失真证据解释图像和视频的观感，也研究如何结合序列与结构预测蛋白质功能。</p><p class="muted">2027 届硕士研究生 · AI Agent / 大模型算法</p><div class="actions"><a class="button" href="#projects">查看项目</a><a class="button outline" href="#structures">探索蛋白质 ↓</a><a class="button outline" href="#iqa">试试图像质量实验 ↓</a><a class="button outline" href="https://github.com/F1ndWANG">访问 GitHub ↗</a></div></div>
@@ -216,6 +284,212 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
 </main>
 <footer class="wrap foot"><span>汪子文 · Ziwen Wang</span><a href="https://github.com/F1ndWANG">@F1ndWANG ↗</a></footer>
 <script>
+const siteEnglish = {
+  "汪子文 Ziwen Wang | 个人主页": "Ziwen Wang | Personal Website",
+  "汪子文，北京理工大学计算机科学与技术硕士研究生。关注 AI Agent、多模态理解与视觉质量评估。": "Ziwen Wang, computer science graduate student at Beijing Institute of Technology. Research interests include AI agents, multimodal understanding, and visual quality assessment.",
+  "页面导航": "Site navigation",
+  "项目": "Projects",
+  "科研": "Research",
+  "教育": "Education",
+  "结构图鉴": "Protein Gallery",
+  "图像质量": "Image Quality",
+  "北京理工大学 · 计算机科学与技术": "Beijing Institute of Technology · Computer Science",
+  "汪子文": "Ziwen Wang",
+  "我用执行轨迹分析智能体在哪一步出错，用局部失真证据解释图像和视频的观感，也研究如何结合序列与结构预测蛋白质功能。": "I trace where AI agents fail, use local distortions to explain how images and videos look, and study how protein sequences and structures inform function prediction.",
+  "2027 届硕士研究生 · AI Agent / 大模型算法": "Master’s candidate, Class of 2027 · AI Agents / Foundation Models",
+  "查看项目": "View projects",
+  "探索蛋白质 ↓": "Explore proteins ↓",
+  "试试图像质量实验 ↓": "Try the image quality lab ↓",
+  "访问 GitHub ↗": "GitHub ↗",
+  "戴圆框眼镜、身穿酒红色连帽衫，在海边竖起拇指的汪子文动漫肖像": "Anime portrait of Ziwen Wang in round glasses and a burgundy hoodie, giving a thumbs-up by the sea",
+  "实习与项目": "Internship & Projects",
+  "快手 · 音视频技术部": "Kuaishou · Audio and Video Technology",
+  "UGC 图像与视频质量评估": "Image and Video Quality Assessment for UGC",
+  "在图像侧，将全局质量预测与局部失真证据关联，并通过多专家协同判断清晰度、色彩、构图等观感缺陷。在视频侧，结合稀疏采样与局部时序特征，区分静态镜头、快速剪辑与真实卡顿。": "For images, I connect overall quality predictions to local distortion evidence and combine expert models to identify issues such as poor sharpness, color, and composition. For video, I use sparse sampling and local temporal features to distinguish static shots, fast cuts, and actual stutter.",
+  "开源框架复现": "Open-Source Reproduction",
+  "复现 Curriculum–Actor–Verifier 三角色闭环，验证工具预算、执行结果核验和持久记忆对任务表现的影响。关注失败经验污染与评测反馈泄漏。": "I reproduced the Curriculum–Actor–Verifier loop and studied how tool budgets, verification, and persistent memory affect task performance, with attention to memory contamination and evaluation feedback leakage.",
+  "个人工程项目": "Independent Engineering Project",
+  "实现 Planner–Executor–Verifier 执行链，通过统一工具注册、参数校验、有限重试与幂等保护支持任务恢复。结合 RAG、分层记忆与 SSE 追踪任务状态。": "I built a Planner–Executor–Verifier pipeline with a tool registry, argument validation, bounded retries, and idempotency safeguards. It uses RAG, tiered memory, and SSE to track execution.",
+  "科研成果": "Research",
+  "ICIC 2026 Oral · 第一作者": "ICIC 2026 Oral · First Author",
+  "联合建模残基间多种空间关系、ESM 序列特征与 InterPro 功能域先验，用于蛋白质功能预测。": "Combines multiple spatial relationships between residues, ESM sequence features, and InterPro domain priors to predict protein function.",
+  "SCIENCE CHINA Information Sciences · 第二作者": "SCIENCE CHINA Information Sciences · Second Author",
+  "通过跨模态注意力融合序列、三维结构、进化信息与 GO 语义，关联残基级结构和蛋白质级功能。": "Uses cross-modal attention to integrate sequence, 3D structure, evolutionary information, and GO semantics, linking residue-level structure to protein-level function.",
+  "教育背景": "Education",
+  "2024 – 2027（预计）": "2024–2027 (expected)",
+  "北京理工大学": "Beijing Institute of Technology",
+  "计算机科学与技术 · 硕士研究生": "Master’s student in Computer Science and Technology",
+  "太原科技大学": "Taiyuan University of Science and Technology",
+  "计算机科学与技术 · 工学学士 · 专业排名第一": "BEng in Computer Science and Technology · Ranked first in the major",
+  "实验结构 · RCSB PDB": "Experimental Structures · RCSB PDB",
+  "蛋白质结构图鉴": "Protein Structure Gallery",
+  "预览图展示 PDB 实验结构的 A 链 Cα 主链轨迹。选择条目后，可在 Mol* 中旋转、缩放或切换表示方式。": "The previews trace the Cα backbone of chain A from experimental PDB structures. Select an entry and open Mol* to rotate, zoom, or change the molecular representation.",
+  "选择蛋白质结构": "Choose a protein structure",
+  "泛素": "Ubiquitin",
+  "肌红蛋白": "Myoglobin",
+  "溶菌酶": "Lysozyme",
+  "观察紧凑折叠中的 β 折叠片和 α 螺旋": "Look for β-sheets and an α-helix in the compact fold.",
+  "预览 α 螺旋主链，在 3D 中寻找血红素辅基": "Trace the α-helical backbone and find the heme group in 3D.",
+  "从不同角度观察酶的结构轮廓": "Explore the enzyme’s fold from different angles.",
+  "泛素 1UBQ 的蛋白质结构预览": "Ubiquitin (1UBQ) structure preview",
+  "加载交互式 3D 结构": "Load interactive 3D structure",
+  "结构条目 ↗": "PDB entry ↗",
+  "独立打开 Mol* ↗": "Open Mol* separately ↗",
+  "体验残基接触图与 GO 教学演示 ↓": "Explore residue contacts and GO ↓",
+  "计算机视觉 · 图像质量评估": "Computer Vision · Image Quality Assessment",
+  "图像质量实验室": "Image Quality Lab",
+  "选择失真类型并调节强度。拖动分割线对比原图和失真图，再打开差异图查看变化集中在哪里。": "Choose a distortion and adjust its strength. Drag the divider to compare the original and distorted images, then turn on the difference map to see where pixels changed.",
+  "原图与失真图滑动对比": "Sliding comparison of the original and distorted image",
+  "左 · 原图　／　右 · 失真": "Left · Original / Right · Distorted",
+  "对比分割线": "Comparison divider",
+  "实验图片": "Test image",
+  "主页肖像": "Portfolio portrait",
+  "合成测试卡": "Synthetic test chart",
+  "失真类型": "Distortion",
+  "高斯模糊": "Gaussian blur",
+  "随机噪声": "Random noise",
+  "JPEG 压缩": "JPEG compression",
+  "过曝剪切": "Highlight clipping",
+  "局部模糊": "Local blur",
+  "失真强度": "Distortion strength",
+  "显示像素差异图": "Show pixel difference map",
+  "PSNR · 全参考像素指标": "PSNR · Full-reference pixel metric",
+  "计算中": "Calculating…",
+  "PSNR 由原图与失真图的像素误差计算。试着把两种失真调到接近的 PSNR，再比较它们的视觉影响。": "PSNR measures pixel error relative to the original. Try matching the PSNR of two distortions, then compare how they look.",
+  "蛋白质功能预测 · 交互演示": "Protein Function Prediction · Interactive Demo",
+  "蛋白质如何提供功能线索？": "How does a protein’s structure hint at its function?",
+  "先看一条残基链怎样从线性序列变成空间结构，再用接触图查找序列上相距很远、空间中却彼此靠近的残基。": "Watch a residue chain transition from a sequence to a spatial structure, then use the contact map to find residues far apart in sequence but close in space.",
+  "选择演示步骤": "Choose a demonstration step",
+  "序列": "Sequence",
+  "结构": "Structure",
+  "功能域": "Domains",
+  "GO 预测": "GO Prediction",
+  "示意残基链，按步骤显示序列、空间结构和候选功能域": "Schematic residue chain showing the sequence, spatial structure, and candidate domain",
+  "● 残基　━ 主链": "● Residues ━ Backbone",
+  "┈ 所选残基对 / 蜜桃色功能域": "┈ Selected pair / Peach domain",
+  "序列提供什么线索？": "What does the sequence tell us?",
+  "沿主链读取氨基酸顺序。蛋白质语言模型可以将序列编码为特征，供下游任务使用。": "Read the amino acids along the backbone. A protein language model can encode that sequence into features for downstream tasks.",
+  "播放流程": "Play walkthrough",
+  "暂停流程": "Pause walkthrough",
+  "旋转结构": "Rotate structure",
+  "停止旋转": "Stop rotation",
+  "教学模型 · 示意坐标与标签": "Teaching model · Illustrative coordinates and labels",
+  "按残基编号排列的接触矩阵。可用右侧选择框操作。": "Contact matrix indexed by residue number. Use the adjacent selectors to choose a pair.",
+  "薄荷绿表示接触，玫红框标记所选残基对。": "Mint-green cells indicate contacts. Pink outlines mark the selected pair.",
+  "残基接触图": "Residue Contact Map",
+  "点矩阵任意格，或选择两个残基。结构视图同步高亮该残基对。": "Click a matrix cell or select two residues. The structure view highlights the same pair.",
+  "残基 A": "Residue A",
+  "残基 B": "Residue B",
+  "距离阈值": "Distance threshold",
+  "按示意 Cα 坐标计算欧氏距离。只有间隔至少 3 个位置且距离不超过阈值的残基对会标为接触。": "Distances are Euclidean and use the illustrative Cα coordinates. A pair counts as a contact if it is at least three positions apart and within the selected distance threshold.",
+  "残基接触方法": "Background on residue contacts",
+  "汪子文 · Ziwen Wang": "Ziwen Wang",
+  "间隔": "Sequence separation",
+  "接触": "Contact",
+  "未标为接触": "No contact",
+  "折叠让远距离残基相遇": "Folding can bring distant residues together",
+  "玫红虚线连接接触图中选中的残基对。对比序列间隔和三维距离，就能看到残基图中的空间边如何补充主链信息。": "The dashed pink line connects the pair selected in the contact map. Compare sequence separation with 3D distance to see what spatial edges add to the backbone.",
+  "功能域提供先验": "Domains provide prior evidence",
+  "蜜桃色标出一段候选功能域。InterPro 可基于蛋白质序列匹配家族、结构域和功能位点特征，提供功能线索。": "Peach highlights a candidate domain. InterPro matches sequence signatures for protein families, domains, and functional sites, offering clues about function.",
+  "把证据映射到 GO 标签": "Map the evidence to GO terms",
+  "模型可以融合序列、空间结构和功能域特征，预测多个 GO 标签。下面是三个维度的独立示例。": "A model can combine sequence, spatial structure, and domain features to predict multiple GO labels. Each aspect below has its own example.",
+  "分子功能（MF）· 激酶活性": "Molecular function (MF) · Kinase activity",
+  "生物过程（BP）· 信号转导": "Biological process (BP) · Signal transduction",
+  "细胞组分（CC）· 细胞质": "Cellular component (CC) · Cytoplasm",
+  "Mol* 三维分子结构 ·": "Mol* 3D structure ·",
+  "观察眼镜边缘、发丝或测试卡细线。模糊会削弱高频细节。": "Look at the glasses, hair, or fine lines in the chart. Blur suppresses high-frequency detail.",
+  "观察平坦区域。噪声会引入原图没有的随机亮暗变化。": "Watch flat areas. Noise adds random brightness variations.",
+  "观察边缘与色块交界。低质量压缩可能出现块效应和边缘振铃。": "Watch edges and boundaries between colors. Heavy compression can produce blocking and ringing.",
+  "观察亮部。像素达到上限后，不同亮度会合并成相同的数值。": "Watch the highlights. Once pixels reach the upper limit, distinct brightness values clip to the same level.",
+  "模糊集中在图像中央。局部观感变化可能被全图平均误差稀释。": "The blur is localized near the center. Averaging error across the image can dilute a conspicuous local change.",
+  "差异图 · 越亮代表像素变化越大": "Difference map · Brighter pixels changed more",
+  "原图与失真图的像素差异图": "Pixel difference map between the original and distorted images",
+  "压缩预览不可用": "Compression preview unavailable"
+};
+window.translateSite = text => document.documentElement.lang === 'en' && Object.hasOwn(siteEnglish, text) ? siteEnglish[text] : text;
+(() => {
+  const root = document.documentElement;
+  const language = document.querySelector('#site-language');
+  const theme = document.querySelector('#site-theme');
+  const systemTheme = matchMedia('(prefers-color-scheme: dark)');
+  const navLinks = [...document.querySelectorAll('.top nav a')];
+  const text = [];
+  const attributes = [];
+  const translate = window.translateSite;
+
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode(node) {
+      return node.parentElement.closest('script,style') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  while (walker.nextNode()) {
+    const node = walker.currentNode;
+    const trimmed = node.data.trim();
+    if (Object.hasOwn(siteEnglish, trimmed)) text.push([node, node.data, trimmed]);
+  }
+  for (const element of document.querySelectorAll('[alt],[aria-label],meta[name="description"]')) {
+    for (const attribute of ['alt', 'aria-label', 'content']) {
+      const original = element.getAttribute(attribute);
+      if (Object.hasOwn(siteEnglish, original)) attributes.push([element, attribute, original]);
+    }
+  }
+  const originalTitle = document.title;
+
+  function syncLanguage() {
+    for (const [node, original, trimmed] of text) node.data = original.replace(trimmed, translate(trimmed));
+    for (const [element, attribute, original] of attributes) element.setAttribute(attribute, translate(original));
+    document.title = translate(originalTitle);
+    language.textContent = root.lang === 'en' ? '简体中文' : 'English';
+    language.lang = root.lang === 'en' ? 'zh-CN' : 'en';
+    language.setAttribute('aria-label', root.lang === 'en' ? 'Switch to Simplified Chinese' : '切换到英文');
+    syncTheme();
+    document.dispatchEvent(new Event('site-language'));
+  }
+
+  function syncTheme() {
+    const dark = root.dataset.theme === 'dark';
+    const english = root.lang === 'en';
+    theme.textContent = dark ? (english ? '☀ Light' : '☀ 白天') : (english ? '☾ Dark' : '☾ 黑夜');
+    theme.setAttribute('aria-pressed', String(dark));
+    theme.setAttribute('aria-label', english ? 'Dark mode' : '深色模式');
+    document.querySelector('meta[name="theme-color"]').content = dark ? '#19151f' : '#f5f1eb';
+  }
+
+  function save(key, value) {
+    try { localStorage.setItem(key, value); } catch {}
+  }
+
+  language.addEventListener('click', () => {
+    root.lang = root.lang === 'en' ? 'zh-CN' : 'en';
+    save('portfolio-language', root.lang);
+    syncLanguage();
+  });
+
+  theme.addEventListener('click', () => {
+    root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.themeOverride = 'true';
+    save('portfolio-theme', root.dataset.theme);
+    syncTheme();
+  });
+
+  systemTheme.addEventListener('change', event => {
+    if (root.dataset.themeOverride) return;
+    root.dataset.theme = event.matches ? 'dark' : 'light';
+    syncTheme();
+  });
+
+  function syncNavigation() {
+    navLinks.forEach(link => {
+      if (link.hash === location.hash) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  }
+  window.addEventListener('hashchange', syncNavigation);
+  syncNavigation();
+  syncLanguage();
+})();
+</script>
+<script>
 (() => {
   const lab = document.querySelector('.protein-lab');
   const canvas = lab.querySelector('canvas');
@@ -251,7 +525,7 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
     const [a, b] = pair;
     inputA.value = a;
     inputB.value = b;
-    result.textContent = `${sequence[a]}${a + 1} ↔ ${sequence[b]}${b + 1} · 间隔 ${Math.abs(a - b)} · ${distance(a, b).toFixed(1)} Å · ${isContact(a, b) ? '接触' : '未标为接触'}`;
+    result.textContent = `${sequence[a]}${a + 1} ↔ ${sequence[b]}${b + 1} · ${translateSite('间隔')} ${Math.abs(a - b)} · ${distance(a, b).toFixed(1)} Å · ${translateSite(isContact(a, b) ? '接触' : '未标为接触')}`;
     if (!mapCtx) return;
     mapCtx.clearRect(0, 0, map.width, map.height);
     mapCtx.font = '11px system-ui';
@@ -388,14 +662,14 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
   function stopPlayback() {
     clearInterval(timer);
     timer = null;
-    play.textContent = '播放流程';
+    play.textContent = translateSite('播放流程');
     play.setAttribute('aria-pressed', 'false');
   }
 
   function stopRotation() {
     spinning = false;
     rotate.setAttribute('aria-pressed', 'false');
-    rotate.textContent = '旋转结构';
+    rotate.textContent = translateSite('旋转结构');
   }
 
   function select(next) {
@@ -407,24 +681,36 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
       angle = 0;
     }
     rotate.disabled = next === 0 || reduced.matches;
-    const heading = document.createElement('h3');
-    const description = document.createElement('p');
-    [heading.textContent, description.textContent] = copy[index];
-    notes.replaceChildren(heading, description);
-    if (index === 3) {
-      const list = document.createElement('ul');
-      goExamples.forEach(example => {
-        const item = document.createElement('li');
-        item.textContent = example;
-        list.append(item);
-      });
-      notes.append(list);
-    }
+    updateNotes();
     if (reduced.matches) {
       folded = index === 0 ? 0 : 1;
       draw();
     } else schedule();
   }
+
+  function updateNotes() {
+    const heading = document.createElement('h3');
+    const description = document.createElement('p');
+    [heading.textContent, description.textContent] = copy[index].map(translateSite);
+    notes.replaceChildren(heading, description);
+    if (index === 3) {
+      const list = document.createElement('ul');
+      goExamples.forEach(example => {
+        const item = document.createElement('li');
+        item.textContent = translateSite(example);
+        list.append(item);
+      });
+      notes.append(list);
+    }
+  }
+
+  document.addEventListener('site-language', () => {
+    play.textContent = translateSite(timer === null ? '播放流程' : '暂停流程');
+    rotate.textContent = translateSite(spinning ? '停止旋转' : '旋转结构');
+    updateNotes();
+    drawMap();
+  });
+  updateNotes();
 
   steps.forEach((button, next) => button.addEventListener('click', () => {
     stopPlayback();
@@ -433,7 +719,7 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
   play.addEventListener('click', () => {
     if (timer !== null) { stopPlayback(); return; }
     select(0);
-    play.textContent = '暂停流程';
+    play.textContent = translateSite('暂停流程');
     play.setAttribute('aria-pressed', 'true');
     timer = setInterval(() => {
       if (index < 3) select(index + 1);
@@ -444,7 +730,7 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
     if (spinning) { stopRotation(); return; }
     spinning = true;
     rotate.setAttribute('aria-pressed', 'true');
-    rotate.textContent = '停止旋转';
+    rotate.textContent = translateSite('停止旋转');
     schedule();
   });
   reduced.addEventListener('change', () => {
@@ -467,8 +753,15 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
   let pdb = '1UBQ';
   let frame = null;
 
+  function updatePreviewLabel() {
+    const name = cards.find(card => card.dataset.pdb === pdb).querySelector('strong').textContent;
+    picture.alt = document.documentElement.lang === 'en' ? name + ' (' + pdb + ') structure preview' : name + ' ' + pdb + ' 的蛋白质结构预览';
+    if (frame) frame.title = translateSite('Mol* 三维分子结构 ·') + ' ' + pdb;
+  }
+
+  document.addEventListener('site-language', updatePreviewLabel);
   function showStructure() {
-    frame.title = 'Mol* 三维分子结构 · ' + pdb;
+    frame.title = translateSite('Mol* 三维分子结构 ·') + ' ' + pdb;
     frame.src = viewer.href;
   }
 
@@ -476,8 +769,13 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
     if (pdb === card.dataset.pdb) return;
     pdb = card.dataset.pdb;
     cards.forEach(item => item.setAttribute('aria-pressed', String(item === card)));
-    picture.alt = card.querySelector('strong').textContent + ' ' + pdb + ' 的蛋白质结构预览';
+    updatePreviewLabel();
     picture.src = card.querySelector('img').src;
+    if (picture.isConnected && matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+      picture.animate([{opacity:.45, transform:'scale(.96)'}, {opacity:1, transform:'scale(1)'}], {
+        duration:320, easing:'cubic-bezier(.2,.8,.3,1)'
+      });
+    }
     entry.href = 'https://www.rcsb.org/structure/' + pdb;
     viewer.href = 'https://molstar.org/viewer/?pdb=' + pdb + '&pdb-provider=rcsb';
     if (frame) showStructure();
@@ -541,9 +839,9 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
   function paint() {
     view.drawImage(ref.canvas, 0, 0);
     const showHeat = difference.checked;
-    byId('caption').textContent = showHeat ? '差异图 · 越亮代表像素变化越大' : '左 · 原图　／　右 · 失真';
+    byId('caption').textContent = translateSite(showHeat ? '差异图 · 越亮代表像素变化越大' : '左 · 原图　／　右 · 失真');
     split.disabled = showHeat;
-    canvas.setAttribute('aria-label', showHeat ? '原图与失真图的像素差异图' : '原图与失真图滑动对比');
+    canvas.setAttribute('aria-label', translateSite(showHeat ? '原图与失真图的像素差异图' : '原图与失真图滑动对比'));
     if (showHeat) { view.drawImage(heat.canvas, 0, 0); return; }
     const x = Math.round(Number(split.value) / 100 * size);
     if (x < size) view.drawImage(distorted.canvas, x, 0, size - x, size, x, 0, size - x, size);
@@ -579,19 +877,19 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
     const kind = mode.value;
     const amount = Number(level.value) / 100;
     byId('level-value').textContent = level.value;
-    byId('tip').textContent = tips[kind];
+    byId('tip').textContent = translateSite(tips[kind]);
     distorted.drawImage(ref.canvas, 0, 0);
     if (!amount) { measure(); return; }
 
     if (kind === 'jpeg') {
-      score.textContent = '计算中';
+      score.textContent = translateSite('计算中');
       const image = new Image();
       image.onload = () => {
         if (ticket !== revision) return;
         distorted.drawImage(image, 0, 0);
         measure();
       };
-      image.onerror = () => { if (ticket === revision) score.textContent = '压缩预览不可用'; };
+      image.onerror = () => { if (ticket === revision) score.textContent = translateSite('压缩预览不可用'); };
       image.src = ref.canvas.toDataURL('image/jpeg', 1 - amount * .97);
       return;
     }
@@ -660,6 +958,7 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
     source.value = 'chart';
     updateSource();
   };
+  document.addEventListener('site-language', schedule);
   portrait.src = 'portrait.jpg';
   updateSource();
 })();
