@@ -189,6 +189,48 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
 .attribution-images figure { margin:0; max-width:none; }
 .attribution-images figcaption { color:var(--muted); font-size:.88rem; margin-bottom:5px; }
 .attribution-images canvas { display:block; width:100%; height:auto; border-radius:12px; }
+
+:root { --surface:#fffbf6; --surface-tint:#f0e3e4; --hero-surface:#ecded9; --brand-wash:#f1dfd8; --header-bg:#f5f1eb; }
+:root[data-theme="dark"] { --surface:#251e2c; --surface-tint:#2e2435; --hero-surface:#2e2337; --brand-wash:#362538; --header-bg:#1e1724; }
+.wrap { width:min(1120px,calc(100% - 48px)); }
+.site-header { position:sticky; top:0; z-index:10; background:var(--header-bg); border-bottom:1px solid var(--line); }
+@supports(backdrop-filter:blur(12px)) {
+  .site-header { background:color-mix(in srgb,var(--header-bg) 91%,transparent); backdrop-filter:blur(14px); }
+}
+.top { border:0; min-height:70px; padding-block:12px; }
+.top nav { justify-content:center; gap:clamp(10px,2vw,24px); }
+.top nav a:last-child { color:var(--accent); }
+.brand { letter-spacing:.13em; white-space:nowrap; }
+section[id] { scroll-margin-top:102px; }
+.hero { position:relative; isolation:isolate; margin-block:28px 34px; padding:clamp(24px,5vw,68px); gap:clamp(24px,5vw,68px); overflow:hidden; border-radius:30px; border:1px solid var(--line); background:linear-gradient(125deg,var(--surface) 34%,var(--hero-surface)); }
+.hero .eyebrow { font-size:.87rem; }
+.hero h1 { font-weight:850; letter-spacing:-.065em; }
+.hero h1 span { margin-top:10px; letter-spacing:-.04em; }
+.hero .intro { margin:20px 0 12px; }
+.hero .actions { gap:8px; }
+.hero .actions .button { border-radius:999px; padding:8px 16px; }
+.hero figure { max-width:100%; padding:8px; background:var(--surface); border:1px solid var(--line); border-radius:24px; box-shadow:0 16px 36px #47203223; }
+.hero figure img { border-radius:16px; box-shadow:none; }
+.experiment-index h2,.section > h2 { letter-spacing:-.04em; }
+.section { padding-block:clamp(24px,4vw,42px); }
+.experiment-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; }
+.experiment-card { display:flex; flex-direction:column; min-width:0; padding:16px; border-top:3px solid var(--accent); background:linear-gradient(160deg,var(--surface),var(--surface-tint)); }
+.experiment-card h3 { font-size:clamp(1rem,1.65vw,1.24rem); }
+.experiment-card > p:not(.eyebrow) { color:var(--muted); font-size:.9rem; line-height:1.55; margin:8px 0 15px; }
+.experiment-links { display:flex; flex-wrap:wrap; gap:5px 12px; margin-top:auto; }
+.experiment-links a { font-size:.86rem; font-weight:700; color:var(--accent); }
+.top-link { color:var(--accent); font-weight:700; }
+.foot { flex-wrap:wrap; }
+@media(max-width:850px) { .experiment-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:680px) {
+  .wrap { width:calc(100% - 28px); }
+  .site-header { position:static; }
+  section[id] { scroll-margin-top:12px; }
+  .top nav { justify-content:flex-start; }
+  .hero { margin-top:16px; border-radius:20px; }
+  .hero .actions .button { font-size:.85rem; padding:7px 11px; }
+}
+@media(max-width:380px) { .experiment-grid { grid-template-columns:1fr; } }
 </style>
 <script>
 (() => {
@@ -205,11 +247,20 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
 </script>
 </head>
 <body>
-<header class="wrap top"><a class="brand" href="#about">ZIWEN WANG</a><nav aria-label="页面导航"><a href="#projects">项目</a><a href="#research">科研</a><a href="#education">教育</a><a href="#structures">结构图鉴</a><a href="#iqa">图像质量</a><a href="#attribution">局部归因</a><a href="#vqa">视频流畅度</a><a href="#agent-lab">Agent 实验</a></nav><div class="site-preferences"><button id="site-language" type="button" lang="en">English</button><button id="site-theme" type="button" aria-pressed="false">☾ 黑夜</button></div></header>
+<div class="site-header"><header class="wrap top"><a class="brand" href="#about">ZIWEN WANG</a><nav aria-label="页面导航"><a href="#projects">项目</a><a href="#research">科研</a><a href="#education">教育</a><a href="#experiments">交互实验</a></nav><div class="site-preferences"><button id="site-language" type="button" lang="en">English</button><button id="site-theme" type="button" aria-pressed="false">☾ 黑夜</button></div></header></div>
 <main class="wrap">
 <section id="about" class="hero">
-<div><p class="eyebrow">北京理工大学 · 计算机科学与技术</p><h1>汪子文<span>Ziwen Wang</span></h1><p class="intro">我用执行轨迹分析智能体在哪一步出错，用局部失真证据解释图像和视频的观感，也研究如何结合序列与结构预测蛋白质功能。</p><p class="muted">2027 届硕士研究生 · AI Agent / 大模型算法</p><div class="actions"><a class="button" href="#projects">查看项目</a><a class="button outline" href="#structures">探索蛋白质 ↓</a><a class="button outline" href="#iqa">试试图像质量实验 ↓</a><a class="button outline" href="https://github.com/F1ndWANG">访问 GitHub ↗</a></div></div>
+<div><p class="eyebrow">北京理工大学 · 计算机科学与技术</p><h1>汪子文<span>Ziwen Wang</span></h1><p class="intro">我用执行轨迹分析智能体在哪一步出错，用局部失真证据解释图像和视频的观感，也研究如何结合序列与结构预测蛋白质功能。</p><p class="muted">2027 届硕士研究生 · AI Agent / 大模型算法</p><div class="actions"><a class="button" href="#experiments">浏览交互实验 ↓</a><a class="button outline" href="#projects">查看项目</a><a class="button outline" href="https://github.com/F1ndWANG">访问 GitHub ↗</a></div></div>
 <figure><img src="portrait.jpg" alt="戴圆框眼镜、身穿酒红色连帽衫，在海边竖起拇指的汪子文动漫肖像" width="800" height="800"></figure>
+</section>
+<section id="experiments" class="section experiment-index">
+  <h2>交互实验</h2>
+  <div class="experiment-grid">
+    <article class="experiment-card"><p class="eyebrow">失真对照</p><h3>图像质量实验室</h3><p>用对照图观察失真，用局部修复验证误差变化。</p><div class="experiment-links"><a href="#iqa">图像质量 ↗</a><a href="#attribution">局部归因 ↗</a></div></article>
+    <article class="experiment-card"><p class="eyebrow">卡顿模拟</p><h3>视频流畅度实验</h3><p>逐帧比较低帧率、重复帧和冻结。</p><div class="experiment-links"><a href="#vqa">视频流畅度 ↗</a></div></article>
+    <article class="experiment-card"><p class="eyebrow">结构与功能</p><h3>蛋白质结构图鉴</h3><p>从真实 PDB 结构进入残基接触图与功能预测演示。</p><div class="experiment-links"><a href="#structures">结构图鉴 ↗</a><a href="#protein">残基接触图 ↗</a></div></article>
+    <article class="experiment-card"><p class="eyebrow">工具调用与核验</p><h3>智能体执行实验室</h3><p>查看工具超时、独立核验和重试如何改变执行轨迹。</p><div class="experiment-links"><a href="#agent-lab">Agent 实验 ↗</a></div></article>
+  </div>
 </section>
 <section id="projects" class="section"><h2>实习与项目</h2><div class="grid">
 <article class="wide"><p class="eyebrow">快手 · 音视频技术部</p><h3>UGC 图像与视频质量评估</h3><p>在图像侧，将全局质量预测与局部失真证据关联，并通过多专家协同判断清晰度、色彩、构图等观感缺陷。在视频侧，结合稀疏采样与局部时序特征，区分静态镜头、快速剪辑与真实卡顿。</p></article>
@@ -356,9 +407,27 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
 <article class="wide"><h3>蛋白质功能：序列之外还有什么证据？</h3><p>用接触图比较序列间隔和空间距离，再看真实结构中的主链形态。功能预测把序列、结构和功能域等证据结合起来。</p></article>
 </div></section>
 </main>
-<footer class="wrap foot"><span>汪子文 · Ziwen Wang</span><a href="https://github.com/F1ndWANG">@F1ndWANG ↗</a></footer>
+<footer class="wrap foot"><span>汪子文 · Ziwen Wang</span><a href="https://github.com/F1ndWANG">@F1ndWANG ↗</a><a class="top-link" href="#about">返回顶部 ↑</a></footer>
 <script>
 const siteEnglish = {
+  "交互实验": "Interactive demos",
+  "浏览交互实验 ↓": "Explore interactive demos ↓",
+  "视频流畅度实验": "Video fluency lab",
+  "用对照图观察失真，用局部修复验证误差变化。": "Compare distortions and see how local repair changes pixel error.",
+  "逐帧比较低帧率、重复帧和冻结。": "Step through low frame rates, repeated frames, and freezes.",
+  "从真实 PDB 结构进入残基接触图与功能预测演示。": "Explore experimental PDB structures, residue contacts, and a function prediction demo.",
+  "查看工具超时、独立核验和重试如何改变执行轨迹。": "See how timeouts, independent checks, and retries change an execution trace.",
+  "失真对照": "Distortion comparison",
+  "卡顿模拟": "Stall simulation",
+  "结构与功能": "Structure and function",
+  "工具调用与核验": "Tool calls and verification",
+  "返回顶部 ↑": "Back to top ↑",
+  "图像质量 ↗": "Image quality ↗",
+  "局部归因 ↗": "Local attribution ↗",
+  "视频流畅度 ↗": "Video fluency ↗",
+  "结构图鉴 ↗": "Structure gallery ↗",
+  "残基接触图 ↗": "Residue contact map ↗",
+  "Agent 实验 ↗": "Agent lab ↗",
   "局部归因": "Local Attribution",
   "局部失真归因实验": "Local Distortion Attribution Lab",
   "两张图受到同样强度、同样面积的干扰。A 的干扰盖住文字，B 的干扰落在背景。先比较阅读体验，再修复其中一个区域。": "Both images have the same perturbation strength and area. In A it covers text; in B it affects the background. Compare readability, then repair a region.",
