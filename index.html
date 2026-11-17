@@ -38,13 +38,34 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
   .lab-grid { grid-template-columns: 1fr; }
   .lab-controls span { margin-left: 0; }
 }
+
+.hero .intro { max-width: 25em; font-size: clamp(1.05rem, 2vw, 1.27rem); }
+.hero .actions a[href="#protein"] { background:#fff9f1; }
+#protein h2 { font-size: clamp(2rem, 4.4vw, 3.9rem); letter-spacing:-.055em; line-height:1.15; margin-bottom: 18px; }
+.protein-lab { background:#0b1425; border-color:#31415b; box-shadow:0 25px 65px #111c3033; }
+.lab-grid { grid-template-columns:minmax(0,1.65fr) minmax(0,1fr); }
+.lab-visual { position:relative; background: radial-gradient(ellipse at 52% 46%,#245162 0%,#12253b 46%,#0b1425 80%); }
+.lab-visual::before { content:""; position:absolute; inset:0; pointer-events:none; background-image:linear-gradient(#9ddbd210 1px,transparent 1px),linear-gradient(90deg,#9ddbd210 1px,transparent 1px); background-size:32px 32px; mask-image:radial-gradient(ellipse,#000,transparent 82%); }
+.lab-visual canvas { position:relative; }
+.lab-notes { background:linear-gradient(155deg,#1b2f49,#111e32); }
+.lab-steps { gap:6px; }
+.lab-steps button { flex:1; min-width:90px; }
+.contact-panel { display:grid; grid-template-columns:minmax(0,290px) minmax(0,1fr); gap:clamp(16px,4vw,44px); padding:clamp(16px,4vw,34px); border-top:1px solid #304460; background:#101d30; }
+.contact-panel h3 { margin:0; color:#89eadb; }
+.contact-panel p { margin:.55rem 0; }
+.contact-panel canvas { display:block; width:100%; height:auto; cursor:crosshair; }
+.contact-panel label { display:inline-flex; gap:8px; align-items:center; flex-wrap:wrap; margin:8px 12px 4px 0; }
+.contact-panel select { color:#eaf4ff; background:#192b44; border:1px solid #567190; font:inherit; border-radius:5px; padding:4px; }
+.contact-panel output { color:#ffcf80; display:block; min-height:3em; font-variant-numeric:tabular-nums; }
+.contact-caption { color:#b9cbe1; font-size:.84rem; }
+@media(max-width:680px) { .lab-grid,.contact-panel {grid-template-columns:1fr;} .contact-panel canvas {max-width:290px;} }
 </style>
 </head>
 <body>
 <header class="wrap top"><a class="brand" href="#about">ZIWEN WANG</a><nav aria-label="页面导航"><a href="#projects">项目</a><a href="#research">科研</a><a href="#education">教育</a><a href="#protein">蛋白质演示</a></nav></header>
 <main class="wrap">
 <section id="about" class="hero">
-<div><p class="eyebrow">北京理工大学 · 计算机科学与技术</p><h1>汪子文<span>Ziwen Wang</span></h1><p class="intro">我用执行轨迹分析智能体在哪一步出错，用局部失真证据解释图像和视频的观感，也研究如何结合序列与结构预测蛋白质功能。</p><p class="muted">2027 届硕士研究生 · AI Agent / 大模型算法</p><div class="actions"><a class="button" href="#projects">查看项目</a><a class="button outline" href="https://github.com/F1ndWANG">访问 GitHub ↗</a></div></div>
+<div><p class="eyebrow">北京理工大学 · 计算机科学与技术</p><h1>汪子文<span>Ziwen Wang</span></h1><p class="intro">我用执行轨迹分析智能体在哪一步出错，用局部失真证据解释图像和视频的观感，也研究如何结合序列与结构预测蛋白质功能。</p><p class="muted">2027 届硕士研究生 · AI Agent / 大模型算法</p><div class="actions"><a class="button" href="#projects">查看项目</a><a class="button outline" href="#protein">探索蛋白质 ↓</a><a class="button outline" href="https://github.com/F1ndWANG">访问 GitHub ↗</a></div></div>
 <figure><img src="portrait.jpg" alt="戴圆框眼镜、身穿酒红色连帽衫，在海边竖起拇指的汪子文动漫肖像" width="800" height="800"></figure>
 </section>
 <section id="projects" class="section"><h2>实习与项目</h2><div class="grid">
@@ -62,8 +83,8 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
 </div></section>
 <section id="protein" class="section">
   <p class="eyebrow">蛋白质功能预测 · 交互演示</p>
-  <h2>从氨基酸序列到功能注释</h2>
-  <p>序列上相距很远的残基，折叠后可能在空间中相邻。点击下方步骤，看看序列、结构和功能域分别提供什么证据。</p>
+  <h2>蛋白质如何提供功能线索？</h2>
+  <p>先看一条残基链怎样从线性序列变成空间结构，再用接触图查找序列上相距很远、空间中却彼此靠近的残基。</p>
   <div class="protein-lab">
     <div class="lab-steps" role="group" aria-label="选择演示步骤">
       <button type="button" aria-pressed="true">序列</button>
@@ -74,7 +95,7 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
     <div class="lab-grid">
       <div class="lab-visual">
         <canvas width="720" height="400" role="img" aria-label="示意残基链，按步骤显示序列、空间结构和候选功能域"></canvas>
-        <p class="lab-legend">● 残基　━ 主链　<span>┈ 空间邻接 / 金色功能域</span></p>
+        <p class="lab-legend">● 残基　━ 主链　<span>┈ 所选残基对 / 金色功能域</span></p>
       </div>
       <div class="lab-notes" aria-live="polite" aria-atomic="true">
         <h3>序列提供什么线索？</h3>
@@ -84,10 +105,22 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
     <div class="lab-controls">
       <button type="button" id="lab-play" aria-pressed="false">播放流程</button>
       <button type="button" id="lab-rotate" aria-pressed="false" disabled>旋转结构</button>
-      <span>教学示意 · 使用虚构坐标和标签示例</span>
+      <span>教学模型 · 示意坐标与标签</span>
+    </div>
+    <div class="contact-panel">
+      <div><canvas id="contact-map" width="290" height="290" aria-label="按残基编号排列的接触矩阵。可用右侧选择框操作。"></canvas><p class="contact-caption">青色表示接触，金框标记所选残基对。</p></div>
+      <div>
+        <h3>残基接触图</h3>
+        <p>点矩阵任意格，或选择两个残基。结构视图同步高亮该残基对。</p>
+        <label>残基 A <select id="contact-a"></select></label>
+        <label>残基 B <select id="contact-b"></select></label>
+        <label>距离阈值 <select id="contact-cutoff"><option>6</option><option selected>8</option><option>10</option><option>12</option></select> Å</label>
+        <output id="contact-result" aria-live="polite"></output>
+        <p class="contact-caption">按示意 Cα 坐标计算欧氏距离。只有间隔至少 3 个位置且距离不超过阈值的残基对会标为接触。</p>
+      </div>
     </div>
   </div>
-  <p class="lab-sources"><a href="https://www.ebi.ac.uk/interpro/">InterPro</a> · <a href="https://www.geneontology.org/docs/ontology-documentation/">Gene Ontology</a></p>
+  <p class="lab-sources"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4894841/">残基接触方法</a> · <a href="https://www.ebi.ac.uk/interpro/">InterPro</a> · <a href="https://www.geneontology.org/docs/ontology-documentation/">Gene Ontology</a></p>
 </section>
 </main>
 <footer class="wrap foot"><span>汪子文 · Ziwen Wang</span><a href="https://github.com/F1ndWANG">@F1ndWANG ↗</a></footer>
@@ -108,10 +141,69 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
     [66,86,-16],[14,83,-31],[-32,57,-25],[-88,-28,-6],
     [-26,-13,14],[27,-11,36]
   ];
+  const map = lab.querySelector('#contact-map');
+  const mapCtx = map.getContext('2d');
+  const inputA = lab.querySelector('#contact-a');
+  const inputB = lab.querySelector('#contact-b');
+  const cutoff = lab.querySelector('#contact-cutoff');
+  const result = lab.querySelector('#contact-result');
+  const pitch = 18;
+  const origin = 28;
+  const distance = (i, j) => Math.hypot(...chain[i].map((value, axis) => (value - chain[j][axis]) / 10));
+  const isContact = (i, j) => Math.abs(i - j) >= 3 && distance(i, j) <= Number(cutoff.value);
+  let pair = [1, 11];
+  for (const input of [inputA, inputB]) {
+    Array.from(sequence).forEach((letter, i) => input.add(new Option(`${i + 1} · ${letter}`, String(i))));
+  }
+
+  function drawMap() {
+    const [a, b] = pair;
+    inputA.value = a;
+    inputB.value = b;
+    result.textContent = `${sequence[a]}${a + 1} ↔ ${sequence[b]}${b + 1} · 间隔 ${Math.abs(a - b)} · ${distance(a, b).toFixed(1)} Å · ${isContact(a, b) ? '接触' : '未标为接触'}`;
+    if (!mapCtx) return;
+    mapCtx.clearRect(0, 0, map.width, map.height);
+    mapCtx.font = '11px system-ui';
+    mapCtx.textAlign = 'center';
+    for (let i = 0; i < chain.length; i++) {
+      const y = origin + i * pitch;
+      mapCtx.fillStyle = '#b9cbe1';
+      mapCtx.fillText(i + 1, 14, y + 12);
+      mapCtx.fillText(i + 1, origin + i * pitch + 8, 20);
+      for (let j = 0; j < chain.length; j++) {
+        const x = origin + j * pitch;
+        mapCtx.fillStyle = isContact(i, j) ? '#65d8c7' : i === j ? '#485d76' : '#263a53';
+        mapCtx.fillRect(x, y, pitch - 2, pitch - 2);
+        if ((i === a && j === b) || (i === b && j === a)) {
+          mapCtx.strokeStyle = '#ffcf80';
+          mapCtx.lineWidth = 2;
+          mapCtx.strokeRect(x + 1, y + 1, pitch - 4, pitch - 4);
+        }
+      }
+    }
+  }
+
+  function inspectPair(a, b) {
+    pair = [a, b];
+    drawMap();
+    stopPlayback();
+    select(1);
+  }
+
+  map.addEventListener('click', event => {
+    const rect = map.getBoundingClientRect();
+    const a = Math.floor(((event.clientY - rect.top) * map.height / rect.height - origin) / pitch);
+    const b = Math.floor(((event.clientX - rect.left) * map.width / rect.width - origin) / pitch);
+    if (a >= 0 && a < chain.length && b >= 0 && b < chain.length) inspectPair(a, b);
+  });
+  for (const input of [inputA, inputB, cutoff]) {
+    input.addEventListener('change', () => inspectPair(Number(inputA.value), Number(inputB.value)));
+  }
+
   const domain = i => i >= 8 && i <= 12;
   const copy = [
     ['序列提供什么线索？','沿主链读取氨基酸顺序。蛋白质语言模型可以将序列编码为特征，供下游任务使用。'],
-    ['折叠让远距离残基相遇','金色虚线连接序列中的第 2 和第 12 个残基。它们在主链上相隔 10 个位置，折叠后在示意结构中靠近。残基图可以把这类三维邻接关系作为边。'],
+    ['折叠让远距离残基相遇','金色虚线连接接触图中选中的残基对。对比序列间隔和三维距离，就能看到残基图中的空间边如何补充主链信息。'],
     ['功能域提供先验','金色标出一段候选功能域。InterPro 可基于蛋白质序列匹配家族、结构域和功能位点特征，提供功能线索。'],
     ['把证据映射到 GO 标签','模型可以融合序列、空间结构和功能域特征，预测多个 GO 标签。下面是三个维度的独立示例。']
   ];
@@ -147,12 +239,16 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
       ctx.stroke();
     };
     points.slice(1).forEach((point, i) => stroke(points[i], point, index >= 2 && domain(i) && domain(i + 1) ? '#ffcf80' : '#658ea9', 4));
-    if (index === 1 && folded > .65) stroke(points[1], points[11], '#ffcf80', 3, [7, 6]);
+    if (index === 1 && folded > .65) stroke(points[pair[0]], points[pair[1]], '#ffcf80', 3, [7, 6]);
     points.forEach((point, i) => {
-      const highlight = (index === 1 && (i === 1 || i === 11)) || (index >= 2 && domain(i));
+      const highlight = (index === 1 && pair.includes(i)) || (index >= 2 && domain(i));
       ctx.beginPath();
       ctx.arc(point.x, point.y, 15, 0, 2 * Math.PI);
-      ctx.fillStyle = highlight ? '#ffcf80' : '#89eadb';
+      const gloss = ctx.createRadialGradient(point.x - 5, point.y - 6, 1, point.x, point.y, 17);
+      gloss.addColorStop(0, highlight ? '#fff2ba' : '#d9fff4');
+      gloss.addColorStop(.65, highlight ? '#ffcf80' : '#89eadb');
+      gloss.addColorStop(1, highlight ? '#c3853a' : '#429c99');
+      ctx.fillStyle = gloss;
       ctx.fill();
       ctx.fillStyle = '#112439';
       ctx.font = 'bold 15px system-ui';
@@ -247,6 +343,7 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
     select(index);
   });
   draw();
+  drawMap();
 })();
 </script>
 </body>
