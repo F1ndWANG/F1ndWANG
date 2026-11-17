@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="汪子文，北京理工大学计算机科学与技术硕士研究生。关注 AI Agent、多模态理解与视觉质量评估。">
-<meta name="theme-color" content="#f5f1eb">
+<meta name="theme-color" content="#edf1f5">
 <title>汪子文 Ziwen Wang | 个人主页</title>
 <link rel="stylesheet" href="style.css?v=75034dd">
 <style>
@@ -322,6 +322,72 @@ body, :root[data-theme="dark"] body {
   .publication-list article { grid-template-columns:1fr; }
   .publication-list .eyebrow { grid-row:auto; }
 }
+
+/* Slate blue visual system */
+:root {
+  --paper:#edf1f5; --ink:#202c3b; --muted:#526477; --accent:#395e83; --line:#c5d0dc;
+  --surface:#f9fbfd; --surface-tint:#e2eaf2; --hero-surface:#dce5ee;
+  --brand-wash:#e0e8f1; --header-bg:#edf1f5; --page-glow:#d9e3ef; --hero-shadow:#253d5810;
+  --card-mauve:#dce5ef; --card-mint:#dce8eb; --card-blue:#d3deec; --card-peach:#e2e6ec;
+  --control:#fff; --selected:#d3e1ef; --selected-border:#6f8fab;
+  --preview:#e4ebf2; --preview-center:#f5f8fc;
+}
+:root[data-theme="dark"] {
+  --paper:#101924; --ink:#e8eef5; --muted:#b0bed0; --accent:#a9c6e4; --line:#35475a;
+  --surface:#192535; --surface-tint:#233449; --hero-surface:#23364c;
+  --brand-wash:#22344b; --header-bg:#121d2a; --page-glow:#20334b; --hero-shadow:#030a1233;
+  --card-mauve:#2a3c52; --card-mint:#263e48; --card-blue:#2c415c; --card-peach:#34404e;
+  --control:#223247; --selected:#304d6c; --selected-border:#87a8c9;
+  --preview:#c5d3e2; --preview-center:#ecf2f8;
+}
+html { accent-color:var(--accent); }
+::selection { color:var(--ink); background:var(--selected); }
+.site-header { box-shadow:0 1px 0 #52677e08; }
+.hero { border-radius:22px; box-shadow:0 15px 45px var(--hero-shadow); }
+.hero h1 { letter-spacing:-.045em; }
+.hero figure { transform:none; border-radius:18px; box-shadow:0 10px 30px var(--hero-shadow); }
+.hero figure img { border-radius:11px; }
+.hero figure::before { background:linear-gradient(140deg,#92a8c2,#5f80a7); opacity:.16; }
+.hero .actions .button { border-radius:8px; }
+.button { border-radius:8px; }
+:root[data-theme="dark"] .button:not(.outline) { color:#14283e; }
+.site-preferences button,.vqa-actions button { border-radius:8px; }
+.section > h2 { letter-spacing:-.025em; }
+.experiment-card,:root[data-theme="dark"] .experiment-card { border-radius:12px; box-shadow:0 3px 14px var(--hero-shadow); }
+.experiment-art { border-radius:7px; }
+article { border-radius:12px; }
+:is(.iqa-lab,.protein-lab),:root[data-theme="dark"] :is(.iqa-lab,.protein-lab) {
+  color:var(--ink); background:var(--surface); border-color:var(--line); border-radius:16px; box-shadow:0 7px 28px var(--hero-shadow);
+}
+:is(.lab-steps,.lab-notes,.lab-controls,.contact-panel),
+:root[data-theme="dark"] :is(.lab-steps,.lab-notes,.lab-controls,.contact-panel) {
+  background:var(--surface-tint); color:var(--ink); border-color:var(--line);
+}
+.lab-visual { background:radial-gradient(ellipse at center,#edf3f9,#dce6f0); }
+:root[data-theme="dark"] .lab-visual { background:radial-gradient(ellipse at center,#cedbe9,#a8bbd0); }
+.lab-visual::before { background-image:radial-gradient(circle,#607a9650 1px,transparent 1.5px); }
+:is(.lab-notes h3,.contact-panel h3,.contact-panel output,.lab-legend span,.iqa-score output,.pdb-cards span),
+:root[data-theme="dark"] :is(.lab-notes h3,.contact-panel h3,.contact-panel output,.lab-legend span,.iqa-score output,.pdb-cards span) { color:var(--accent); }
+.lab-legend,:root[data-theme="dark"] .lab-legend { color:#314b67; }
+.lab-legend span,:root[data-theme="dark"] .lab-legend span { color:#314b67; }
+:is(.iqa-caption,.iqa-note,.contact-caption,.lab-controls span,.pdb-cards small),
+:root[data-theme="dark"] :is(.iqa-caption,.iqa-note,.contact-caption,.lab-controls span,.pdb-cards small) { color:var(--muted); }
+:is(.protein-lab button,.contact-panel select,.iqa-controls select,.pdb-cards button),
+:root[data-theme="dark"] :is(.protein-lab button,.contact-panel select,.iqa-controls select,.pdb-cards button) {
+  color:var(--ink); background:var(--control); border-color:var(--line); border-radius:8px;
+}
+:is(.protein-lab button,.pdb-cards button)[aria-pressed="true"],
+:root[data-theme="dark"] :is(.protein-lab button,.pdb-cards button)[aria-pressed="true"] {
+  background:var(--selected); color:var(--ink); border-color:var(--selected-border);
+}
+.iqa-score,:root[data-theme="dark"] .iqa-score { background:var(--surface-tint); border-radius:9px; }
+.iqa-range input { accent-color:var(--accent); }
+.pdb-stage,:root[data-theme="dark"] .pdb-stage { background:radial-gradient(ellipse,var(--preview-center),var(--preview)); border-radius:14px; }
+.pdb-stage button { color:#f9fbfd; background:#395e83; border-color:#395e83; border-radius:8px; }
+:is(button,select,input,a):focus-visible { outline:2px solid var(--accent); outline-offset:4px; }
+@media(hover:hover) and (prefers-reduced-motion:no-preference) {
+  article:hover,.button:hover,.protein-lab button:not(:disabled):hover { border-color:var(--selected-border); box-shadow:0 9px 22px var(--hero-shadow); }
+}
 </style>
 <script>
 (() => {
@@ -457,7 +523,7 @@ body, :root[data-theme="dark"] body {
     <div class="lab-grid">
       <div class="lab-visual">
         <canvas width="720" height="400" role="img" aria-label="示意残基链，按步骤显示序列、空间结构和候选功能域"></canvas>
-        <p class="lab-legend">● 残基　━ 主链　<span>┈ 所选残基对 / 蜜桃色功能域</span></p>
+        <p class="lab-legend">● 残基　━ 主链　<span>┈ 所选残基对 / 浅蓝色功能域</span></p>
       </div>
       <div class="lab-notes" aria-live="polite" aria-atomic="true">
         <h3>序列提供什么线索？</h3>
@@ -470,7 +536,7 @@ body, :root[data-theme="dark"] body {
       <span>教学模型 · 示意坐标与标签</span>
     </div>
     <div class="contact-panel">
-      <div><canvas id="contact-map" width="290" height="290" aria-label="按残基编号排列的接触矩阵。可用右侧选择框操作。"></canvas><p class="contact-caption">薄荷绿表示接触，玫红框标记所选残基对。</p></div>
+      <div><canvas id="contact-map" width="290" height="290" aria-label="按残基编号排列的接触矩阵。可用右侧选择框操作。"></canvas><p class="contact-caption">灰蓝色表示接触，深蓝框标记所选残基对。</p></div>
       <div>
         <h3>残基接触图</h3>
         <p>点矩阵任意格，或选择两个残基。结构视图同步高亮该残基对。</p>
@@ -662,7 +728,7 @@ const siteEnglish = {
   "GO 预测": "GO Prediction",
   "示意残基链，按步骤显示序列、空间结构和候选功能域": "Schematic residue chain showing the sequence, spatial structure, and candidate domain",
   "● 残基　━ 主链": "● Residues ━ Backbone",
-  "┈ 所选残基对 / 蜜桃色功能域": "┈ Selected pair / Peach domain",
+  "┈ 所选残基对 / 浅蓝色功能域": "┈ Selected pair / Light-blue domain",
   "序列提供什么线索？": "What does the sequence tell us?",
   "沿主链读取氨基酸顺序。蛋白质语言模型可以将序列编码为特征，供下游任务使用。": "Read the amino acids along the backbone. A protein language model can encode that sequence into features for downstream tasks.",
   "播放流程": "Play walkthrough",
@@ -671,7 +737,7 @@ const siteEnglish = {
   "停止旋转": "Stop rotation",
   "教学模型 · 示意坐标与标签": "Teaching model · Illustrative coordinates and labels",
   "按残基编号排列的接触矩阵。可用右侧选择框操作。": "Contact matrix indexed by residue number. Use the adjacent selectors to choose a pair.",
-  "薄荷绿表示接触，玫红框标记所选残基对。": "Mint-green cells indicate contacts. Pink outlines mark the selected pair.",
+  "灰蓝色表示接触，深蓝框标记所选残基对。": "Slate-blue cells indicate contacts. Dark-blue outlines mark the selected pair.",
   "残基接触图": "Residue Contact Map",
   "点矩阵任意格，或选择两个残基。结构视图同步高亮该残基对。": "Click a matrix cell or select two residues. The structure view highlights the same pair.",
   "残基 A": "Residue A",
@@ -684,9 +750,9 @@ const siteEnglish = {
   "接触": "Contact",
   "未标为接触": "No contact",
   "折叠让远距离残基相遇": "Folding can bring distant residues together",
-  "玫红虚线连接接触图中选中的残基对。对比序列间隔和三维距离，就能看到残基图中的空间边如何补充主链信息。": "The dashed pink line connects the pair selected in the contact map. Compare sequence separation with 3D distance to see what spatial edges add to the backbone.",
+  "深蓝虚线连接接触图中选中的残基对。对比序列间隔和三维距离，就能看到残基图中的空间边如何补充主链信息。": "The dashed blue line connects the pair selected in the contact map. Compare sequence separation with 3D distance to see what spatial edges add to the backbone.",
   "功能域提供先验": "Domains provide prior evidence",
-  "蜜桃色标出一段候选功能域。InterPro 可基于蛋白质序列匹配家族、结构域和功能位点特征，提供功能线索。": "Peach highlights a candidate domain. InterPro matches sequence signatures for protein families, domains, and functional sites, offering clues about function.",
+  "浅蓝色标出一段候选功能域。InterPro 可基于蛋白质序列匹配家族、结构域和功能位点特征，提供功能线索。": "Light blue highlights a candidate domain. InterPro matches sequence signatures for protein families, domains, and functional sites, offering clues about function.",
   "把证据映射到 GO 标签": "Map the evidence to GO terms",
   "模型可以融合序列、空间结构和功能域特征，预测多个 GO 标签。下面是三个维度的独立示例。": "A model can combine sequence, spatial structure, and domain features to predict multiple GO labels. Each aspect below has its own example.",
   "分子功能（MF）· 激酶活性": "Molecular function (MF) · Kinase activity",
@@ -748,7 +814,7 @@ window.translateSite = text => document.documentElement.lang === 'en' && Object.
     theme.textContent = dark ? (english ? '☀ Light' : '☀ 白天') : (english ? '☾ Dark' : '☾ 黑夜');
     theme.setAttribute('aria-pressed', String(dark));
     theme.setAttribute('aria-label', english ? 'Dark mode' : '深色模式');
-    document.querySelector('meta[name="theme-color"]').content = dark ? '#19151f' : '#f5f1eb';
+    document.querySelector('meta[name="theme-color"]').content = dark ? '#101924' : '#edf1f5';
   }
 
   function save(key, value) {
@@ -851,15 +917,15 @@ window.translateSite = text => document.documentElement.lang === 'en' && Object.
     mapCtx.textAlign = 'center';
     for (let i = 0; i < chain.length; i++) {
       const y = origin + i * pitch;
-      mapCtx.fillStyle = '#654963';
+      mapCtx.fillStyle = '#314b67';
       mapCtx.fillText(i + 1, 14, y + 12);
       mapCtx.fillText(i + 1, origin + i * pitch + 8, 20);
       for (let j = 0; j < chain.length; j++) {
         const x = origin + j * pitch;
-        mapCtx.fillStyle = isContact(i, j) ? '#89d8c3' : i === j ? '#c6a3cd' : '#ecdce9';
+        mapCtx.fillStyle = isContact(i, j) ? '#85a4c1' : i === j ? '#9aaec2' : '#dce5ee';
         mapCtx.fillRect(x, y, pitch - 2, pitch - 2);
         if ((i === a && j === b) || (i === b && j === a)) {
-          mapCtx.strokeStyle = '#94396e';
+          mapCtx.strokeStyle = '#294e76';
           mapCtx.lineWidth = 2;
           mapCtx.strokeRect(x + 1, y + 1, pitch - 4, pitch - 4);
         }
@@ -887,8 +953,8 @@ window.translateSite = text => document.documentElement.lang === 'en' && Object.
   const domain = i => i >= 8 && i <= 12;
   const copy = [
     ['序列提供什么线索？','沿主链读取氨基酸顺序。蛋白质语言模型可以将序列编码为特征，供下游任务使用。'],
-    ['折叠让远距离残基相遇','玫红虚线连接接触图中选中的残基对。对比序列间隔和三维距离，就能看到残基图中的空间边如何补充主链信息。'],
-    ['功能域提供先验','蜜桃色标出一段候选功能域。InterPro 可基于蛋白质序列匹配家族、结构域和功能位点特征，提供功能线索。'],
+    ['折叠让远距离残基相遇','深蓝虚线连接接触图中选中的残基对。对比序列间隔和三维距离，就能看到残基图中的空间边如何补充主链信息。'],
+    ['功能域提供先验','浅蓝色标出一段候选功能域。InterPro 可基于蛋白质序列匹配家族、结构域和功能位点特征，提供功能线索。'],
     ['把证据映射到 GO 标签','模型可以融合序列、空间结构和功能域特征，预测多个 GO 标签。下面是三个维度的独立示例。']
   ];
   const goExamples = ['分子功能（MF）· 激酶活性','生物过程（BP）· 信号转导','细胞组分（CC）· 细胞质'];
@@ -923,8 +989,8 @@ window.translateSite = text => document.documentElement.lang === 'en' && Object.
       ctx.lineTo(b.x, b.y);
       ctx.stroke();
     };
-    points.slice(1).forEach((point, i) => stroke(points[i], point, index >= 2 && domain(i) && domain(i + 1) ? '#d68158' : '#a082a7', 4));
-    if (index === 1 && folded > .65) stroke(points[pair[0]], points[pair[1]], '#a14078', 3, [7, 6]);
+    points.slice(1).forEach((point, i) => stroke(points[i], point, index >= 2 && domain(i) && domain(i + 1) ? '#5f88b2' : '#7791ac', 4));
+    if (index === 1 && folded > .65) stroke(points[pair[0]], points[pair[1]], '#294e76', 3, [7, 6]);
     points.forEach((point, i) => {
       const selected = index === 1 && pair.includes(i);
       const bounce = selected ? Math.sin(pop * Math.PI) * 4 : 0;
@@ -933,15 +999,15 @@ window.translateSite = text => document.documentElement.lang === 'en' && Object.
         ctx.beginPath();
         ctx.arc(point.x, point.y, 20 + bounce, 0, 2 * Math.PI);
         ctx.lineWidth = 2;
-        ctx.strokeStyle = '#a14078';
+        ctx.strokeStyle = '#294e76';
         ctx.stroke();
       }
       const highlight = (index === 1 && pair.includes(i)) || (index >= 2 && domain(i));
       ctx.beginPath();
       ctx.arc(point.x, point.y, 15 + bounce, 0, 2 * Math.PI);
       const gloss = ctx.createRadialGradient(point.x - 5, point.y - 6, 1, point.x, point.y, 17);
-      const palette = [['#fffbff','#e8c2f4','#bc84ce'],['#fafffe','#b8ebdc','#70bfb2'],['#fff9f8','#fac9d9','#db8aa9']];
-      const colors = highlight ? ['#fff9ea','#ffc8ac','#dd8a6f'] : palette[i % palette.length];
+      const palette = [['#f7fbff','#b7cce0','#708da9'],['#fbfdff','#c6d6e5','#8ca5bc'],['#f5faff','#a8bfd7','#6383a5']];
+      const colors = highlight ? ['#f8fcff','#8fbbdf','#416c97'] : palette[i % palette.length];
       colors.forEach((color, stop) => gloss.addColorStop([0,.66,1][stop], color));
       ctx.fillStyle = gloss;
       ctx.fill();
@@ -951,7 +1017,7 @@ window.translateSite = text => document.documentElement.lang === 'en' && Object.
       ctx.textBaseline = 'middle';
       ctx.fillText(sequence[i], point.x, point.y);
       if (selected && folded > .92) {
-        ctx.fillStyle = '#be6484';
+        ctx.fillStyle = '#4e7599';
         ctx.beginPath();
         ctx.ellipse(point.x - 9, point.y + 6, 2.6, 1.5, 0, 0, 2 * Math.PI);
         ctx.ellipse(point.x + 9, point.y + 6, 2.6, 1.5, 0, 0, 2 * Math.PI);
@@ -1312,7 +1378,7 @@ window.translateSite = text => document.documentElement.lang === 'en' && Object.
 
   function draw(ctx, frame) {
     const {width, height} = ctx.canvas;
-    ctx.fillStyle = '#221a30';
+    ctx.fillStyle = '#172637';
     ctx.fillRect(0, 0, width, height);
     const x = 45 + (width - 90) * frame / (count - 1);
     const y = height / 2 - 47 * Math.sin(frame / 26);
@@ -1323,14 +1389,14 @@ window.translateSite = text => document.documentElement.lang === 'en' && Object.
       if (i === 0) ctx.moveTo(px, py);
       else ctx.lineTo(px, py);
     }
-    ctx.strokeStyle = '#735c88';
+    ctx.strokeStyle = '#6985a3';
     ctx.lineWidth = 2;
     ctx.stroke();
     ctx.beginPath();
     ctx.arc(x, y, 18, 0, 2 * Math.PI);
-    ctx.fillStyle = ctx === original ? '#9de8d0' : '#ffaac8';
+    ctx.fillStyle = ctx === original ? '#b9cee2' : '#6fa7db';
     ctx.fill();
-    ctx.fillStyle = '#fff1f8';
+    ctx.fillStyle = '#e8f1fa';
     ctx.font = '16px ui-monospace, monospace';
     ctx.fillText((frame / rate).toFixed(2) + ' s', 18, 29);
   }
