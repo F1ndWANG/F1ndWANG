@@ -178,6 +178,13 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
   .vqa-actions button { transition:scale .15s ease,border-color .15s ease; }
   .vqa-actions button:active { scale:.96; }
 }
+.agent-events { min-width:0; border-left:1px solid var(--line); padding-left:20px; }
+.agent-events h3 { margin:0; }
+.agent-events ol { padding-left:24px; margin:10px 0 0; }
+.agent-events li { margin-bottom:6px; padding:5px 8px; border-radius:8px; background:color-mix(in srgb,var(--accent) 10%,transparent); }
+.vqa-actions button:disabled { opacity:.55; cursor:default; }
+@media(max-width:650px) { .agent-events { border-left:0; border-top:1px solid var(--line); padding:14px 0 0; } }
+@media(prefers-reduced-motion:no-preference) { .agent-events li.is-new { animation:arrive .32s ease-out both; } }
 </style>
 <script>
 (() => {
@@ -194,7 +201,7 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
 </script>
 </head>
 <body>
-<header class="wrap top"><a class="brand" href="#about">ZIWEN WANG</a><nav aria-label="页面导航"><a href="#projects">项目</a><a href="#research">科研</a><a href="#education">教育</a><a href="#structures">结构图鉴</a><a href="#iqa">图像质量</a><a href="#vqa">视频流畅度</a></nav><div class="site-preferences"><button id="site-language" type="button" lang="en">English</button><button id="site-theme" type="button" aria-pressed="false">☾ 黑夜</button></div></header>
+<header class="wrap top"><a class="brand" href="#about">ZIWEN WANG</a><nav aria-label="页面导航"><a href="#projects">项目</a><a href="#research">科研</a><a href="#education">教育</a><a href="#structures">结构图鉴</a><a href="#iqa">图像质量</a><a href="#vqa">视频流畅度</a><a href="#agent-lab">Agent 实验</a></nav><div class="site-preferences"><button id="site-language" type="button" lang="en">English</button><button id="site-theme" type="button" aria-pressed="false">☾ 黑夜</button></div></header>
 <main class="wrap">
 <section id="about" class="hero">
 <div><p class="eyebrow">北京理工大学 · 计算机科学与技术</p><h1>汪子文<span>Ziwen Wang</span></h1><p class="intro">我用执行轨迹分析智能体在哪一步出错，用局部失真证据解释图像和视频的观感，也研究如何结合序列与结构预测蛋白质功能。</p><p class="muted">2027 届硕士研究生 · AI Agent / 大模型算法</p><div class="actions"><a class="button" href="#projects">查看项目</a><a class="button outline" href="#structures">探索蛋白质 ↓</a><a class="button outline" href="#iqa">试试图像质量实验 ↓</a><a class="button outline" href="https://github.com/F1ndWANG">访问 GitHub ↗</a></div></div>
@@ -314,6 +321,14 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
   </div>
   <p class="lab-sources"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4894841/">残基接触方法</a> · <a href="https://www.ebi.ac.uk/interpro/">InterPro</a> · <a href="https://www.geneontology.org/docs/ontology-documentation/">Gene Ontology</a></p>
 </section>
+<section id="agent-lab" class="section gallery">
+<h2>智能体执行实验室</h2><p>核对三段视频的卡顿总时长：180、0、320 ms。切换故障情景和调用预算，观察执行、独立核验和恢复。</p>
+<div class="iqa-lab"><div class="iqa-controls">
+<label>工具情景 <select id="agent-scenario"><option value="normal">正常返回</option><option value="timeout">首次超时</option><option value="wrong">首次返回错误值</option></select></label>
+<label>调用预算 <select id="agent-budget"><option>1</option><option selected>2</option><option>3</option></select></label>
+<div class="vqa-actions"><button type="button" id="agent-next">执行下一步</button><button type="button" id="agent-run">运行到结束</button><button type="button" id="agent-reset">重置</button></div>
+<div class="iqa-score"><span>调用次数</span><output id="agent-used">0 / 2</output></div><p class="iqa-note">合成数据与模拟工具。验证器独立求和。</p>
+</div><div class="agent-events"><h3>执行轨迹</h3><ol id="agent-trace" aria-live="polite" aria-relevant="additions"></ol></div></div></section>
 <section id="research-notes" class="section"><h2>从实验观察到研究问题</h2><div class="grid">
 <article><h3>图像质量：失真发生在哪里？</h3><p>在图像实验里打开局部模糊和差异图，比较受影响区域与全图分数。研究中的问题是，缺少参考图时，怎样定位证据并解释它对整体观感的影响。</p></article>
 <article><h3>视频质量：画面相同，节奏为何不同？</h3><p>在流畅度实验里逐帧比较重复帧和冻结。真实的 UGC 视频还需要结合场景运动、剪辑和时间戳判断异常。</p></article>
@@ -323,6 +338,20 @@ body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem
 <footer class="wrap foot"><span>汪子文 · Ziwen Wang</span><a href="https://github.com/F1ndWANG">@F1ndWANG ↗</a></footer>
 <script>
 const siteEnglish = {
+  "Agent 实验": "Agent Lab",
+  "智能体执行实验室": "Agent Execution Lab",
+  "核对三段视频的卡顿总时长：180、0、320 ms。切换故障情景和调用预算，观察执行、独立核验和恢复。": "Audit three video stall durations: 180, 0, and 320 ms. Change the failure scenario and call budget to inspect execution, verification, and recovery.",
+  "工具情景": "Tool scenario",
+  "正常返回": "Normal response",
+  "首次超时": "First call times out",
+  "首次返回错误值": "First result is incorrect",
+  "调用预算": "Call budget",
+  "执行下一步": "Next step",
+  "运行到结束": "Run to completion",
+  "重置": "Reset",
+  "调用次数": "Calls used",
+  "执行轨迹": "Execution trace",
+  "合成数据与模拟工具。验证器独立求和。": "Synthetic data and a simulated tool. The verifier calculates the sum independently.",
   "视频流畅度": "Video Fluency",
   "计算机视觉 · 时间质量": "Computer Vision · Temporal Quality",
   "视频流畅度实验室": "Video Fluency Lab",
@@ -1140,6 +1169,95 @@ window.translateSite = text => document.documentElement.lang === 'en' && Object.
     render();
   });
   render();
+})();
+</script>
+<script>
+(() => {
+  const get = name => document.getElementById('agent-' + name);
+  const scenario = get('scenario'), budget = get('budget'), trace = get('trace');
+  const next = get('next'), run = get('run');
+  const durations = [180, 0, 320];
+  const events = [];
+  let phase, attempts, reported;
+
+  function render(event, animate = false) {
+    const item = document.createElement('li');
+    item.textContent = event[document.documentElement.lang === 'en' ? 1 : 0];
+    if (animate) item.className = 'is-new';
+    trace.append(item);
+  }
+
+  function controls() {
+    get('used').textContent = attempts + ' / ' + budget.value;
+    next.disabled = run.disabled = phase === 'done';
+  }
+
+  function log(zh, en) {
+    const event = [zh, en];
+    events.push(event);
+    render(event, true);
+  }
+
+  function advance() {
+    switch (phase) {
+      case 'plan':
+        log('规划：读取三条记录，用工具求和，再独立核验。','Plan: Read the three entries, call a sum tool, then verify independently.');
+        phase = 'call';
+        break;
+      case 'call':
+        if (attempts >= Number(budget.value)) {
+          log('停止：调用预算已用尽，暂不返回总时长。','Stopped: Call budget exhausted. No total is returned.');
+          phase = 'done';
+          break;
+        }
+        attempts++;
+        if (attempts === 1 && scenario.value === 'timeout') {
+          log('工具超时：本次调用未返回结果。','Tool timeout: The call produced no result.');
+          phase = 'recover';
+          break;
+        }
+        reported = durations.reduce((total, duration) => total + duration, 0);
+        if (attempts === 1 && scenario.value === 'wrong') reported -= 50;
+        log('工具返回：' + reported + ' ms。','Tool response: ' + reported + ' ms.');
+        phase = 'verify';
+        break;
+      case 'verify': {
+        const expected = durations[0] + durations[1] + durations[2];
+        if (reported === expected) {
+          log('核验通过：独立求和为 ' + expected + ' ms，与工具结果一致。','Verified: Independent calculation matches the tool at ' + expected + ' ms.');
+          phase = 'done';
+        } else {
+          log('核验失败：独立求和为 ' + expected + ' ms，拒绝 ' + reported + ' ms。','Verification failed: Independent sum is ' + expected + ' ms. Rejected ' + reported + ' ms.');
+          phase = 'recover';
+        }
+        break;
+      }
+      case 'recover':
+        log('恢复决策：若有调用额度，重试只读工具。','Recovery: Retry the read-only tool if a call remains.');
+        phase = 'call';
+        break;
+    }
+    controls();
+  }
+
+  function reset() {
+    phase = 'plan';
+    attempts = 0;
+    reported = null;
+    events.length = 0;
+    trace.replaceChildren();
+    controls();
+  }
+
+  next.addEventListener('click', advance);
+  run.addEventListener('click', () => { while (phase !== 'done') advance(); });
+  for (const input of [scenario, budget]) input.addEventListener('change', reset);
+  get('reset').addEventListener('click', reset);
+  document.addEventListener('site-language', () => {
+    trace.replaceChildren();
+    events.forEach(event => render(event));
+  });
+  reset();
 })();
 </script>
 </body>
