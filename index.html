@@ -301,6 +301,27 @@ body, :root[data-theme="dark"] body {
   .hero figure { max-width:min(100%,420px); margin-inline:auto; transform:none; }
   .experiment-art { min-height:72px; }
 }
+
+.portfolio-projects article { background:var(--surface); display:flex; flex-direction:column; gap:8px; }
+.portfolio-projects article.wide { border-inline-start:3px solid var(--accent); }
+.portfolio-projects article > p { margin:0; }
+.portfolio-projects article > p:not(.eyebrow) { color:var(--muted); }
+.portfolio-projects .experiment-links { margin-top:auto; padding-top:4px; }
+.publication-list { display:grid; gap:10px; }
+.publication-list article { display:grid; grid-template-columns:minmax(150px,1fr) minmax(0,3fr); column-gap:clamp(15px,4vw,40px); row-gap:6px; background:var(--surface); }
+.publication-list .eyebrow { grid-row:span 2; margin:0; }
+.publication-list h3 { font-size:clamp(1.04rem,1.75vw,1.3rem); text-wrap:pretty; }
+.publication-list article > p:last-child { margin:0; }
+.publication-links { margin-top:14px; }
+.education-list { display:grid; position:relative; gap:12px; border-inline-start:1px solid var(--line); margin-inline-start:6px; padding-inline-start:22px; }
+.education-list article { position:relative; background:var(--surface); }
+.education-list article::before { content:""; position:absolute; inset-inline-start:-28px; top:28px; width:9px; height:9px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 3px var(--paper); }
+.education-list .eyebrow { font-variant-numeric:tabular-nums; }
+#research-notes { scroll-margin-bottom:16px; }
+@media(max-width:620px) {
+  .publication-list article { grid-template-columns:1fr; }
+  .publication-list .eyebrow { grid-row:auto; }
+}
 </style>
 <script>
 (() => {
@@ -332,16 +353,16 @@ body, :root[data-theme="dark"] body {
     <article class="experiment-card card-agent"><div class="experiment-art art-agent" aria-hidden="true"><i></i><i></i><i></i></div><p class="eyebrow">工具调用与核验</p><h3>智能体执行实验室</h3><p>查看工具超时、独立核验和重试如何改变执行轨迹。</p><div class="experiment-links"><a href="#agent-lab">Agent 实验 ↗</a></div></article>
   </div>
 </section>
-<section id="projects" class="section"><h2>实习与项目</h2><div class="grid">
-<article class="wide"><p class="eyebrow">快手 · 音视频技术部</p><h3>UGC 图像与视频质量评估</h3><p>在图像侧，将全局质量预测与局部失真证据关联，并通过多专家协同判断清晰度、色彩、构图等观感缺陷。在视频侧，结合稀疏采样与局部时序特征，区分静态镜头、快速剪辑与真实卡顿。</p></article>
+<section id="projects" class="section portfolio-projects"><h2>实习与项目</h2><div class="grid">
+<article class="wide"><p class="eyebrow">快手 · 音视频技术部</p><h3>UGC 图像与视频质量评估</h3><p>在图像侧，将全局质量预测与局部失真证据关联，并通过多专家协同判断清晰度、色彩、构图等观感缺陷。在视频侧，结合稀疏采样与局部时序特征，区分静态镜头、快速剪辑与真实卡顿。</p><div class="experiment-links"><a href="#iqa">图像质量 ↗</a><a href="#attribution">局部归因 ↗</a><a href="#vqa">视频流畅度 ↗</a></div></article>
 <article><p class="eyebrow">开源框架复现</p><h3>RSIAgent</h3><p>复现 Curriculum–Actor–Verifier 三角色闭环，验证工具预算、执行结果核验和持久记忆对任务表现的影响。关注失败经验污染与评测反馈泄漏。</p></article>
-<article><p class="eyebrow">个人工程项目</p><h3>Agent Runtime</h3><p>实现 Planner–Executor–Verifier 执行链，通过统一工具注册、参数校验、有限重试与幂等保护支持任务恢复。结合 RAG、分层记忆与 SSE 追踪任务状态。</p></article>
+<article><p class="eyebrow">个人工程项目</p><h3>Agent Runtime</h3><p>实现 Planner–Executor–Verifier 执行链，通过统一工具注册、参数校验、有限重试与幂等保护支持任务恢复。结合 RAG、分层记忆与 SSE 追踪任务状态。</p><div class="experiment-links"><a href="#agent-lab">Agent 实验 ↗</a></div></article>
 </div></section>
-<section id="research" class="section"><h2>科研成果</h2><div class="grid">
+<section id="research" class="section portfolio-research"><h2>科研成果</h2><div class="publication-list">
 <article><p class="eyebrow">ICIC 2026 Oral · 第一作者</p><h3 lang="en">MRSGO: Improving Protein Function Prediction with Multi-Relational Structural Modeling and Domain Knowledge</h3><p>联合建模残基间多种空间关系、ESM 序列特征与 InterPro 功能域先验，用于蛋白质功能预测。</p></article>
 <article><p class="eyebrow">SCIENCE CHINA Information Sciences · 第二作者</p><h3 lang="en">A multimodal learning framework for protein function prediction based on multi-grained joint embedding</h3><p>通过跨模态注意力融合序列、三维结构、进化信息与 GO 语义，关联残基级结构和蛋白质级功能。</p></article>
-</div></section>
-<section id="education" class="section"><h2>教育背景</h2><div class="grid">
+</div><div class="experiment-links publication-links"><a href="#structures">结构图鉴 ↗</a><a href="#protein">残基接触图 ↗</a></div></section>
+<section id="education" class="section portfolio-education"><h2>教育背景</h2><div class="education-list">
 <article><p class="eyebrow">2024 – 2027（预计）</p><h3>北京理工大学</h3><p>计算机科学与技术 · 硕士研究生</p></article>
 <article><p class="eyebrow">2020 – 2024</p><h3>太原科技大学</h3><p>计算机科学与技术 · 工学学士 · 专业排名第一</p></article>
 </div></section>
@@ -753,14 +774,37 @@ window.translateSite = text => document.documentElement.lang === 'en' && Object.
     syncTheme();
   });
 
+  const sections = [...document.querySelectorAll('main > section[id]')];
+  const experimentSections = new Set(['structures','iqa','attribution','vqa','protein','agent-lab']);
+  const header = document.querySelector('.site-header');
+  let navFrame = null;
+
   function syncNavigation() {
+    navFrame = null;
+    const sticky = getComputedStyle(header).position === 'sticky';
+    const line = (sticky ? header.getBoundingClientRect().height : 0) + 120;
+    let active = 'about';
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top > line) break;
+      active = section.id;
+    }
+    if (experimentSections.has(active)) active = 'experiments';
+    if (active === 'research-notes') active = 'research';
     navLinks.forEach(link => {
-      if (link.hash === location.hash) link.setAttribute('aria-current', 'location');
+      if (link.hash === '#' + active) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
     });
   }
-  window.addEventListener('hashchange', syncNavigation);
-  syncNavigation();
+
+  function scheduleNavigation() {
+    if (navFrame === null) navFrame = requestAnimationFrame(syncNavigation);
+  }
+
+  window.addEventListener('scroll', scheduleNavigation, {passive:true});
+  window.addEventListener('resize', scheduleNavigation);
+  window.addEventListener('hashchange', scheduleNavigation);
+  document.addEventListener('site-language', scheduleNavigation);
+  scheduleNavigation();
   syncLanguage();
 })();
 </script>
