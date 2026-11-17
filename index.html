@@ -7,12 +7,44 @@
 <meta name="theme-color" content="#f5f1eb">
 <title>汪子文 Ziwen Wang | 个人主页</title>
 <link rel="stylesheet" href="style.css?v=75034dd">
+<style>
+:root { --accent: #793447; }
+body { background: radial-gradient(ellipse at 80% 8%, #eedee2, transparent 27rem), var(--paper); }
+.top nav a { padding: 3px 0; }
+.top nav a:last-child { color: var(--accent); font-weight: 750; }
+.hero .intro { line-height: 1.65; }
+#protein > p:not(.eyebrow) { max-width: 54em; }
+.protein-lab { background: #111c30; color: #eaf4ff; border: 1px solid #2c4562; border-radius: 20px; overflow: hidden; margin-top: 24px; box-shadow: 0 15px 40px #263f5526; }
+.lab-steps, .lab-controls { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px; align-items: center; }
+.lab-steps { border-bottom: 1px solid #304460; }
+.protein-lab button { background: #192b44; color: #eaf4ff; border: 1px solid #567190; padding: 8px 13px; border-radius: 8px; font: inherit; font-weight: 650; cursor: pointer; }
+.protein-lab button[aria-pressed="true"] { color: #112439; background: #89eadb; border-color: #89eadb; }
+.protein-lab button:focus-visible { outline: 2px solid #ffcf80; outline-offset: 3px; }
+.protein-lab button:disabled { opacity: .52; cursor: default; }
+.lab-grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); }
+.lab-visual { min-width: 0; background: radial-gradient(ellipse at center, #1e4361, #132239 70%); }
+.lab-visual canvas { display: block; width: 100%; height: auto; }
+.lab-legend, .lab-controls span { color: #b9cbe1; font-size: .82rem; }
+.lab-legend { text-align: center; margin: 0 8px 14px; }
+.lab-legend span { color: #ffcf80; }
+.lab-notes { padding: 24px; background: #192b44; }
+.lab-notes h3 { color: #89eadb; margin: 0; line-height: 1.4; }
+.lab-notes p { margin-bottom: 0; }
+.lab-notes ul { padding-left: 1.2rem; }
+.lab-controls { border-top: 1px solid #304460; }
+.lab-controls span { margin-left: auto; }
+.lab-sources { font-size: .88rem; }
+@media (max-width: 680px) {
+  .lab-grid { grid-template-columns: 1fr; }
+  .lab-controls span { margin-left: 0; }
+}
+</style>
 </head>
 <body>
-<header class="wrap top"><a class="brand" href="#about">ZIWEN WANG</a><nav aria-label="页面导航"><a href="#projects">项目</a><a href="#research">科研</a><a href="#education">教育</a></nav></header>
+<header class="wrap top"><a class="brand" href="#about">ZIWEN WANG</a><nav aria-label="页面导航"><a href="#projects">项目</a><a href="#research">科研</a><a href="#education">教育</a><a href="#protein">蛋白质演示</a></nav></header>
 <main class="wrap">
 <section id="about" class="hero">
-<div><p class="eyebrow">北京理工大学 · 计算机科学与技术</p><h1>汪子文<span>Ziwen Wang</span></h1><p class="intro">我关注智能体如何可靠地执行任务，也研究视觉模型如何识别和解释影响观感的局部缺陷。</p><p class="muted">2027 届硕士研究生 · AI Agent / 大模型算法</p><div class="actions"><a class="button" href="#projects">查看项目</a><a class="button outline" href="https://github.com/F1ndWANG">访问 GitHub ↗</a></div></div>
+<div><p class="eyebrow">北京理工大学 · 计算机科学与技术</p><h1>汪子文<span>Ziwen Wang</span></h1><p class="intro">我用执行轨迹分析智能体在哪一步出错，用局部失真证据解释图像和视频的观感，也研究如何结合序列与结构预测蛋白质功能。</p><p class="muted">2027 届硕士研究生 · AI Agent / 大模型算法</p><div class="actions"><a class="button" href="#projects">查看项目</a><a class="button outline" href="https://github.com/F1ndWANG">访问 GitHub ↗</a></div></div>
 <figure><img src="portrait.jpg" alt="戴圆框眼镜、身穿酒红色连帽衫，在海边竖起拇指的汪子文动漫肖像" width="800" height="800"></figure>
 </section>
 <section id="projects" class="section"><h2>实习与项目</h2><div class="grid">
@@ -28,7 +60,194 @@
 <article><p class="eyebrow">2024 – 2027（预计）</p><h3>北京理工大学</h3><p>计算机科学与技术 · 硕士研究生</p></article>
 <article><p class="eyebrow">2020 – 2024</p><h3>太原科技大学</h3><p>计算机科学与技术 · 工学学士 · 专业排名第一</p></article>
 </div></section>
+<section id="protein" class="section">
+  <p class="eyebrow">蛋白质功能预测 · 交互演示</p>
+  <h2>从氨基酸序列到功能注释</h2>
+  <p>序列上相距很远的残基，折叠后可能在空间中相邻。点击下方步骤，看看序列、结构和功能域分别提供什么证据。</p>
+  <div class="protein-lab">
+    <div class="lab-steps" role="group" aria-label="选择演示步骤">
+      <button type="button" aria-pressed="true">序列</button>
+      <button type="button" aria-pressed="false">结构</button>
+      <button type="button" aria-pressed="false">功能域</button>
+      <button type="button" aria-pressed="false">GO 预测</button>
+    </div>
+    <div class="lab-grid">
+      <div class="lab-visual">
+        <canvas width="720" height="400" role="img" aria-label="示意残基链，按步骤显示序列、空间结构和候选功能域"></canvas>
+        <p class="lab-legend">● 残基　━ 主链　<span>┈ 空间邻接 / 金色功能域</span></p>
+      </div>
+      <div class="lab-notes" aria-live="polite" aria-atomic="true">
+        <h3>序列提供什么线索？</h3>
+        <p>沿主链读取氨基酸顺序。蛋白质语言模型可以将序列编码为特征，供下游任务使用。</p>
+      </div>
+    </div>
+    <div class="lab-controls">
+      <button type="button" id="lab-play" aria-pressed="false">播放流程</button>
+      <button type="button" id="lab-rotate" aria-pressed="false" disabled>旋转结构</button>
+      <span>教学示意 · 使用虚构坐标和标签示例</span>
+    </div>
+  </div>
+  <p class="lab-sources"><a href="https://www.ebi.ac.uk/interpro/">InterPro</a> · <a href="https://www.geneontology.org/docs/ontology-documentation/">Gene Ontology</a></p>
+</section>
 </main>
 <footer class="wrap foot"><span>汪子文 · Ziwen Wang</span><a href="https://github.com/F1ndWANG">@F1ndWANG ↗</a></footer>
+<script>
+(() => {
+  const lab = document.querySelector('.protein-lab');
+  const canvas = lab.querySelector('canvas');
+  const ctx = canvas.getContext('2d');
+  const steps = Array.from(lab.querySelectorAll('.lab-steps button'));
+  const notes = lab.querySelector('.lab-notes');
+  const play = lab.querySelector('#lab-play');
+  const rotate = lab.querySelector('#lab-rotate');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const sequence = 'ACDEFGHIKLMNPQ';
+  const chain = [
+    [-130,-14,-25],[-101,-54,-14],[-69,-81,11],[-24,-93,37],
+    [23,-78,71],[71,-45,82],[100,3,53],[105,56,17],
+    [66,86,-16],[14,83,-31],[-32,57,-25],[-88,-28,-6],
+    [-26,-13,14],[27,-11,36]
+  ];
+  const domain = i => i >= 8 && i <= 12;
+  const copy = [
+    ['序列提供什么线索？','沿主链读取氨基酸顺序。蛋白质语言模型可以将序列编码为特征，供下游任务使用。'],
+    ['折叠让远距离残基相遇','金色虚线连接序列中的第 2 和第 12 个残基。它们在主链上相隔 10 个位置，折叠后在示意结构中靠近。残基图可以把这类三维邻接关系作为边。'],
+    ['功能域提供先验','金色标出一段候选功能域。InterPro 可基于蛋白质序列匹配家族、结构域和功能位点特征，提供功能线索。'],
+    ['把证据映射到 GO 标签','模型可以融合序列、空间结构和功能域特征，预测多个 GO 标签。下面是三个维度的独立示例。']
+  ];
+  const goExamples = ['分子功能（MF）· 激酶活性','生物过程（BP）· 信号转导','细胞组分（CC）· 细胞质'];
+  let index = 0;
+  let folded = 0;
+  let angle = 0;
+  let timer = null;
+  let frame = null;
+  let lastTime = null;
+  let spinning = false;
+
+  function draw() {
+    if (!ctx) return;
+    const { width, height } = canvas;
+    ctx.clearRect(0, 0, width, height);
+    const points = chain.map(([x, y, z], i) => {
+      const depth = -x * Math.sin(angle) + z * Math.cos(angle);
+      const side = x * Math.cos(angle) + z * Math.sin(angle);
+      const scale = 1 + depth / 650;
+      return {
+        x: width / 2 + ((i - 6.5) * 43 * (1 - folded) + side * folded * scale * 1.75),
+        y: height / 2 + y * folded * scale * 1.55
+      };
+    });
+    const stroke = (a, b, color, weight, dash = []) => {
+      ctx.beginPath();
+      ctx.setLineDash(dash);
+      ctx.strokeStyle = color;
+      ctx.lineWidth = weight;
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.stroke();
+    };
+    points.slice(1).forEach((point, i) => stroke(points[i], point, index >= 2 && domain(i) && domain(i + 1) ? '#ffcf80' : '#658ea9', 4));
+    if (index === 1 && folded > .65) stroke(points[1], points[11], '#ffcf80', 3, [7, 6]);
+    points.forEach((point, i) => {
+      const highlight = (index === 1 && (i === 1 || i === 11)) || (index >= 2 && domain(i));
+      ctx.beginPath();
+      ctx.arc(point.x, point.y, 15, 0, 2 * Math.PI);
+      ctx.fillStyle = highlight ? '#ffcf80' : '#89eadb';
+      ctx.fill();
+      ctx.fillStyle = '#112439';
+      ctx.font = 'bold 15px system-ui';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(sequence[i], point.x, point.y);
+    });
+  }
+
+  function render(time) {
+    frame = null;
+    const target = index === 0 ? 0 : 1;
+    const elapsed = lastTime === null ? 16 : Math.min(time - lastTime, 34);
+    lastTime = time;
+    folded += (target - folded) * Math.min(1, elapsed / 120);
+    if (Math.abs(target - folded) < .003) folded = target;
+    if (spinning) angle += elapsed / 1800;
+    draw();
+    if (folded !== target || spinning) schedule();
+    else lastTime = null;
+  }
+
+  function schedule() {
+    if (frame === null) frame = requestAnimationFrame(render);
+  }
+
+  function stopPlayback() {
+    clearInterval(timer);
+    timer = null;
+    play.textContent = '播放流程';
+    play.setAttribute('aria-pressed', 'false');
+  }
+
+  function stopRotation() {
+    spinning = false;
+    rotate.setAttribute('aria-pressed', 'false');
+    rotate.textContent = '旋转结构';
+  }
+
+  function select(next) {
+    index = next;
+    steps.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
+    if (next === 0) {
+      stopRotation();
+      angle = 0;
+    }
+    rotate.disabled = next === 0 || reduced.matches;
+    const heading = document.createElement('h3');
+    const description = document.createElement('p');
+    [heading.textContent, description.textContent] = copy[index];
+    notes.replaceChildren(heading, description);
+    if (index === 3) {
+      const list = document.createElement('ul');
+      goExamples.forEach(example => {
+        const item = document.createElement('li');
+        item.textContent = example;
+        list.append(item);
+      });
+      notes.append(list);
+    }
+    if (reduced.matches) {
+      folded = index === 0 ? 0 : 1;
+      draw();
+    } else schedule();
+  }
+
+  steps.forEach((button, next) => button.addEventListener('click', () => {
+    stopPlayback();
+    select(next);
+  }));
+  play.addEventListener('click', () => {
+    if (timer !== null) { stopPlayback(); return; }
+    select(0);
+    play.textContent = '暂停流程';
+    play.setAttribute('aria-pressed', 'true');
+    timer = setInterval(() => {
+      if (index < 3) select(index + 1);
+      else stopPlayback();
+    }, 3200);
+  });
+  rotate.addEventListener('click', () => {
+    if (spinning) { stopRotation(); return; }
+    spinning = true;
+    rotate.setAttribute('aria-pressed', 'true');
+    rotate.textContent = '停止旋转';
+    schedule();
+  });
+  reduced.addEventListener('change', () => {
+    stopRotation();
+    if (frame !== null) cancelAnimationFrame(frame);
+    frame = lastTime = null;
+    select(index);
+  });
+  draw();
+})();
+</script>
 </body>
 </html>
