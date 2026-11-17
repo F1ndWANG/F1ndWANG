@@ -45,3 +45,57 @@ article p:last-child { margin: 9px 0 0; }
   figure { max-width: 440px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Motion is opt-in through the visitor's system preference. */
+.hero figure { position: relative; isolation: isolate; }
+.hero figure::before {
+  content: "";
+  position: absolute;
+  inset: 8% -3% -3% 8%;
+  z-index: -1;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #d6808e, #769ada);
+  filter: blur(22px);
+  opacity: .22;
+  pointer-events: none;
+}
+@keyframes arrive {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes portrait-glow {
+  50% { opacity: .52; transform: scale(1.035); }
+}
+@keyframes reveal-card {
+  from { opacity: .35; translate: 0 20px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero > div > *, .hero figure {
+    animation: arrive .72s cubic-bezier(.2,.7,.2,1) backwards;
+  }
+  .hero h1 { animation-delay: .07s; }
+  .hero .intro { animation-delay: .14s; }
+  .hero .muted { animation-delay: .21s; }
+  .hero .actions { animation-delay: .28s; }
+  .hero figure { animation-delay: .12s; }
+  .hero figure::before { animation: portrait-glow 2.6s ease-in-out 2; }
+  article, .button {
+    transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  }
+  .button:focus-visible { transform: translateY(-3px); }
+  @supports (animation-timeline: view()) {
+    article {
+      animation: reveal-card linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 65%;
+    }
+  }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  article:hover, .button:hover {
+    transform: translateY(-4px);
+    border-color: #a76679;
+    box-shadow: 0 12px 26px #40273518;
+  }
+}
